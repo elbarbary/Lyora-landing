@@ -35,4 +35,6 @@ Then configure DNS in Namecheap:
 
 Open `index.html` and replace `hello@lyora.com` with your real inbox.
 
+The waitlist form uses FormSubmit for static sites. The first time someone submits the form, FormSubmit sends an activation email to that inbox. Confirm it once, then future waitlist entries will be delivered there.
+
 If the app store pages go live later, replace the waitlist links with the real App Store and Google Play URLs.

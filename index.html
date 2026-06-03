@@ -186,6 +186,14 @@
   .waitlist-card { position:relative; z-index:2; width:min(620px,100%); margin:34px auto 0; padding:22px; border:1px solid #E8D9DF; border-radius:20px; background:rgba(255,255,255,0.72); box-shadow:0 20px 52px -34px rgba(40,10,25,0.32); }
   .waitlist-card p { margin:0 0 16px; font-weight:300; line-height:1.65; color:#4d4544; }
   .waitlist-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .waitlist-form { display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left; }
+  .waitlist-form label { display:flex; flex-direction:column; gap:7px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); font-family:var(--mono); }
+  .waitlist-form input, .waitlist-form select { width:100%; height:50px; border:1px solid #E1D8D3; border-radius:14px; background:#fff; color:var(--ink); font:400 15px var(--sans); padding:0 14px; outline:none; transition:border-color .2s, box-shadow .2s; }
+  .waitlist-form input:focus, .waitlist-form select:focus { border-color:var(--rose); box-shadow:0 0 0 4px rgba(200,51,107,.12); }
+  .waitlist-form .full { grid-column:1 / -1; }
+  .waitlist-form button { width:100%; }
+  .form-note { margin:12px 0 0; font-size:12px; line-height:1.5; color:var(--ink-2); font-weight:300; }
+  .hidden-field { position:absolute; left:-9999px; width:1px; height:1px; opacity:0; }
 
   /* footer */
   footer { border-top:1px solid var(--divider); padding:62px 0 40px; }
@@ -231,6 +239,8 @@
     .stores { width:100%; flex-direction:column; }
     .btn.lg { width:100%; }
     .waitlist-actions .btn { width:100%; }
+    .waitlist-form { grid-template-columns:1fr; }
+    .waitlist-form .full { grid-column:auto; }
     .meta-row, .meta { font-size:11.5px; }
     .foot-bottom { flex-direction:column; gap:14px; align-items:flex-start; }
     .strip-in { gap:14px; }
@@ -408,16 +418,39 @@
     <span class="mark-slot" data-mode="detail" data-size="64" data-stroke="#C8336B" data-fill="#F5E6EE"></span>
     <h2>The light of this moment<br/>is <span class="it">one tap away.</span></h2>
     <div class="cta">
-      <a class="btn dark lg" href="mailto:hello@lyora.com?subject=Join%20the%20LYORA%20waitlist"><svg width="18" height="20" viewBox="0 0 15 17" fill="currentColor"><path d="M12.5 13.1c-.3.7-.6 1.3-1 1.9-.6.8-1 1.4-1.4 1.6-.5.3-1 .4-1.6.5-.4 0-.9-.1-1.5-.3-.6-.2-1.1-.3-1.5-.3-.5 0-1 .1-1.6.3-.6.2-1 .3-1.4.3-.5 0-1-.1-1.5-.5-.4-.3-.9-.9-1.4-1.7C.8 13.5.3 12 .3 10.5c0-1.6.4-2.9 1.1-3.7.5-.7 1.3-1.1 2.2-1.1.4 0 .9.1 1.5.3.6.2 1 .3 1.1.3.2 0 .6-.1 1.3-.4.6-.2 1.2-.3 1.6-.3 1.2.1 2.1.6 2.7 1.4-1.1.7-1.6 1.6-1.6 2.8 0 .9.3 1.7 1 2.3.3.3.6.5 1 .6-.1.2-.2.5-.3.7zM9.6.3c0 .6-.2 1.2-.7 1.8-.5.6-1.2 1-1.9.9 0-.6.2-1.2.7-1.8C8.1.6 8.6.3 9.2.1c.2 0 .3 0 .4.2z"/></svg>Client waitlist</a>
-      <a class="btn dark lg" href="mailto:hello@lyora.com?subject=Provider%20interest%20for%20LYORA"><svg width="17" height="19" viewBox="0 0 18 20" fill="none"><path d="M1 1.5v17l9.5-8.5L1 1.5z" fill="#fff"/><path d="M1 1.5l9.5 8.5L14 6.8 2.4 0.6C1.9.3 1.3.6 1 1.5z" fill="#E79CB4"/><path d="M1 18.5l9.5-8.5L14 13.2 2.4 19.4c-.5.3-1.1 0-1.4-.9z" fill="#C8336B"/><path d="M10.5 10L14 6.8 17 8.6c.8.5.8 1.4 0 1.9L14 13.2 10.5 10z" fill="#F5E6EE"/></svg>Artist access</a>
+      <a class="btn dark lg" href="#waitlist-form"><svg width="18" height="20" viewBox="0 0 15 17" fill="currentColor"><path d="M12.5 13.1c-.3.7-.6 1.3-1 1.9-.6.8-1 1.4-1.4 1.6-.5.3-1 .4-1.6.5-.4 0-.9-.1-1.5-.3-.6-.2-1.1-.3-1.5-.3-.5 0-1 .1-1.6.3-.6.2-1 .3-1.4.3-.5 0-1-.1-1.5-.5-.4-.3-.9-.9-1.4-1.7C.8 13.5.3 12 .3 10.5c0-1.6.4-2.9 1.1-3.7.5-.7 1.3-1.1 2.2-1.1.4 0 .9.1 1.5.3.6.2 1 .3 1.1.3.2 0 .6-.1 1.3-.4.6-.2 1.2-.3 1.6-.3 1.2.1 2.1.6 2.7 1.4-1.1.7-1.6 1.6-1.6 2.8 0 .9.3 1.7 1 2.3.3.3.6.5 1 .6-.1.2-.2.5-.3.7zM9.6.3c0 .6-.2 1.2-.7 1.8-.5.6-1.2 1-1.9.9 0-.6.2-1.2.7-1.8C8.1.6 8.6.3 9.2.1c.2 0 .3 0 .4.2z"/></svg>Client waitlist</a>
+      <a class="btn dark lg" href="#waitlist-form"><svg width="17" height="19" viewBox="0 0 18 20" fill="none"><path d="M1 1.5v17l9.5-8.5L1 1.5z" fill="#fff"/><path d="M1 1.5l9.5 8.5L14 6.8 2.4 0.6C1.9.3 1.3.6 1 1.5z" fill="#E79CB4"/><path d="M1 18.5l9.5-8.5L14 13.2 2.4 19.4c-.5.3-1.1 0-1.4-.9z" fill="#C8336B"/><path d="M10.5 10L14 6.8 17 8.6c.8.5.8 1.4 0 1.9L14 13.2 10.5 10z" fill="#F5E6EE"/></svg>Artist access</a>
     </div>
     <div class="waitlist-card">
       <p>Launching first in Cairo. Tell us whether you are booking, offering services, or managing a salon team, and LYORA will follow up when early access opens.</p>
-      <div class="waitlist-actions">
-        <a class="btn ghost" href="mailto:hello@lyora.com?subject=LYORA%20client%20waitlist">I want to book</a>
-        <a class="btn ghost" href="mailto:hello@lyora.com?subject=LYORA%20artist%20access">I am an artist</a>
-        <a class="btn ghost" href="mailto:hello@lyora.com?subject=LYORA%20salon%20partnership">I run a salon</a>
-      </div>
+      <form id="waitlist-form" class="waitlist-form" action="https://formsubmit.co/hello@lyora.com" method="POST">
+        <input type="hidden" name="_subject" value="New LYORA waitlist signup"/>
+        <input type="hidden" name="_template" value="table"/>
+        <input type="hidden" name="_captcha" value="false"/>
+        <input type="hidden" name="_next" value="https://elbarbary.github.io/Lyora-landing/?joined=true#get"/>
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required/>
+        </label>
+        <label>
+          Name
+          <input type="text" name="name" autocomplete="name" placeholder="Your name"/>
+        </label>
+        <label class="full">
+          I am joining as
+          <select name="role" required>
+            <option value="Client">Client - I want to book</option>
+            <option value="Artist">Artist - I offer services</option>
+            <option value="Salon">Salon owner - I manage a team</option>
+          </select>
+        </label>
+        <label class="hidden-field">
+          Leave this empty
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off"/>
+        </label>
+        <button class="btn rose lg full" type="submit">Join early access</button>
+      </form>
+      <div class="form-note">Your email goes to the LYORA waitlist inbox. No account needed yet.</div>
     </div>
   </div>
 </div>

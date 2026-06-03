@@ -33,7 +33,7 @@ Then configure DNS in Namecheap:
 
 ## Before launch
 
-Open `index.html` and replace `hello@lyora.com` with your real inbox.
+The waitlist and contact links currently send to `elbarbary@aucegypt.edu`.
 
 The waitlist form uses FormSubmit for static sites. The first time someone submits the form, FormSubmit sends an activation email to that inbox. Confirm it once, then future waitlist entries will be delivered there.
 

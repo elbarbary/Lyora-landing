@@ -193,6 +193,7 @@
   .waitlist-form .full { grid-column:1 / -1; }
   .waitlist-form button { width:100%; }
   .form-note { margin:12px 0 0; font-size:12px; line-height:1.5; color:var(--ink-2); font-weight:300; }
+  .form-note a { color:var(--rose-deep); border-bottom:1px solid rgba(200,51,107,.28); }
   .hidden-field { position:absolute; left:-9999px; width:1px; height:1px; opacity:0; }
 
   /* footer */
@@ -423,11 +424,10 @@
     </div>
     <div class="waitlist-card">
       <p>Launching first in Cairo. Tell us whether you are booking, offering services, or managing a salon team, and LYORA will follow up when early access opens.</p>
-      <form id="waitlist-form" class="waitlist-form" action="https://formsubmit.co/elbarbary@aucegypt.edu" method="POST">
+      <form id="waitlist-form" class="waitlist-form" action="https://flowform.to/elbarbary@aucegypt.edu" method="POST">
         <input type="hidden" name="_subject" value="New LYORA waitlist signup"/>
-        <input type="hidden" name="_template" value="table"/>
-        <input type="hidden" name="_captcha" value="false"/>
-        <input type="hidden" name="_next" value="https://elbarbary.github.io/Lyora-landing/?joined=true#get"/>
+        <input type="hidden" name="_next" value="https://lyora.beauty/?joined=true#get"/>
+        <input type="hidden" name="source" value="lyora.beauty waitlist"/>
         <label>
           Email
           <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required/>
@@ -450,7 +450,7 @@
         </label>
         <button class="btn rose lg full" type="submit">Join early access</button>
       </form>
-      <div class="form-note">Your email goes to the LYORA waitlist inbox. No account needed yet.</div>
+      <div class="form-note">Your email goes to the LYORA waitlist inbox. No account needed yet. If the form gives you trouble, <a href="mailto:elbarbary@aucegypt.edu?subject=Join%20the%20LYORA%20waitlist">join by email</a>.</div>
     </div>
   </div>
 </div>

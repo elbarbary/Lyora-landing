@@ -37,6 +37,6 @@ Then configure DNS in Namecheap:
 
 The waitlist and contact links currently send to `elbarbary@aucegypt.edu`.
 
-The waitlist form uses FlowForm for static sites, with a mailto fallback link in the form note.
+The onsite waitlist form submits into the linked Google Form/Sheet through a hidden iframe. The Google Sheet Apps Script sends the user confirmation email. A mailto fallback link remains in the form note.
 
 If the app store pages go live later, replace the waitlist links with the real App Store and Google Play URLs.

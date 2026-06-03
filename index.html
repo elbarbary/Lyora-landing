@@ -194,6 +194,8 @@
   .waitlist-form button { width:100%; }
   .form-note { margin:12px 0 0; font-size:12px; line-height:1.5; color:var(--ink-2); font-weight:300; }
   .form-note a { color:var(--rose-deep); border-bottom:1px solid rgba(200,51,107,.28); }
+  .form-status { display:none; margin:14px 0 0; padding:12px 14px; border-radius:14px; background:var(--rose-soft); color:var(--rose-deep); font-size:13px; line-height:1.5; }
+  .form-status.show { display:block; }
   .hidden-field { position:absolute; left:-9999px; width:1px; height:1px; opacity:0; }
 
   /* footer */
@@ -424,21 +426,18 @@
     </div>
     <div class="waitlist-card">
       <p>Launching first in Cairo. Tell us whether you are booking, offering services, or managing a salon team, and LYORA will follow up when early access opens.</p>
-      <form id="waitlist-form" class="waitlist-form" action="https://flowform.to/elbarbary@aucegypt.edu" method="POST">
-        <input type="hidden" name="_subject" value="New LYORA waitlist signup"/>
-        <input type="hidden" name="_next" value="https://lyora.beauty/?joined=true#get"/>
-        <input type="hidden" name="source" value="lyora.beauty waitlist"/>
+      <form id="waitlist-form" class="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLSdkGADxEksm06uBByQBRqYCf4efq12iL5dLkXxdak3Z9MyI_Q/formResponse" method="POST" target="google-form-submit">
         <label>
           Email
-          <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required/>
+          <input type="email" name="entry.905072472" autocomplete="email" placeholder="you@example.com" required/>
         </label>
         <label>
           Name
-          <input type="text" name="name" autocomplete="name" placeholder="Your name"/>
+          <input type="text" name="entry.1989890825" autocomplete="name" placeholder="Your name"/>
         </label>
         <label class="full">
           I am joining as
-          <select name="role" required>
+          <select name="entry.1811299792" required>
             <option value="Client">Client - I want to book</option>
             <option value="Artist">Artist - I offer services</option>
             <option value="Salon">Salon owner - I manage a team</option>
@@ -450,7 +449,9 @@
         </label>
         <button class="btn rose lg full" type="submit">Join early access</button>
       </form>
-      <div class="form-note">Your email goes to the LYORA waitlist inbox. No account needed yet. If the form gives you trouble, <a href="mailto:elbarbary@aucegypt.edu?subject=Join%20the%20LYORA%20waitlist">join by email</a>.</div>
+      <iframe title="Google Form submission" name="google-form-submit" style="display:none;"></iframe>
+      <div id="waitlist-status" class="form-status" role="status" aria-live="polite">Thank you. You're on the LYORA waitlist. Check your email for confirmation.</div>
+      <div class="form-note">Your email goes into the LYORA waitlist sheet. No account needed yet. If the form gives you trouble, <a href="mailto:elbarbary@aucegypt.edu?subject=Join%20the%20LYORA%20waitlist">join by email</a>.</div>
     </div>
   </div>
 </div>
@@ -509,6 +510,29 @@
         fill:   slot.getAttribute('data-fill')   || 'none',
         heart:  slot.getAttribute('data-heart')  || null
       });
+    });
+  })();
+
+  (function () {
+    var form = document.getElementById('waitlist-form');
+    var status = document.getElementById('waitlist-status');
+    if (!form || !status) return;
+
+    form.addEventListener('submit', function () {
+      var button = form.querySelector('button[type="submit"]');
+      if (button) {
+        button.disabled = true;
+        button.textContent = 'Joining...';
+      }
+
+      window.setTimeout(function () {
+        status.classList.add('show');
+        form.reset();
+        if (button) {
+          button.disabled = false;
+          button.textContent = 'Join early access';
+        }
+      }, 900);
     });
   })();
 </script>

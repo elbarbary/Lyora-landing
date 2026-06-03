@@ -19,11 +19,13 @@ This folder is ready for GitHub Pages.
 
 ## Use your Namecheap domain
 
-Rename `CNAME.example` to `CNAME` and replace `yourdomain.com` with your real domain, for example:
+The included `CNAME` file points GitHub Pages to:
 
 ```txt
-lyora.com
+lyora.beauty
 ```
+
+Update it if the production domain changes.
 
 Then configure DNS in Namecheap:
 

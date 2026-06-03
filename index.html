@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LYORA — the light of this moment</title>
+<meta name="description" content="LYORA is a premium beauty-booking marketplace for Egypt and MENA. Discover verified hair, makeup, nails, lashes and bridal artists for studio visits or home service."/>
+<meta property="og:title" content="LYORA — the light of this moment"/>
+<meta property="og:description" content="Book trusted beauty artists for hair, makeup, nails and bridal — at their place or yours."/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="assets/o-00-welcome.png"/>
+<meta name="theme-color" content="#FAFAFA"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:#FAFAFA; --surface:#FFFFFF; --ink:#1A1A1A; --ink-2:#6B6B6B;
+    --rose:#C8336B; --rose-deep:#A8285A; --rose-soft:#F5E6EE; --sage:#7BA084; --divider:#EEEEEE;
+    --serif:'Cormorant Garamond',serif; --sans:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+    --maxw:1240px;
+  }
+  * { box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-weight:400; }
+  a { color:inherit; text-decoration:none; }
+  .mark-slot { display:inline-flex; line-height:0; }
+  .wrap { max-width:var(--maxw); margin:0 auto; padding:0 40px; }
+
+  .serif { font-family:var(--serif); }
+  .ital { font-family:var(--serif); font-style:italic; }
+  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--rose); }
+
+  /* photo placeholders */
+  .photo { position:relative; overflow:hidden; background:var(--rose-soft); }
+  .photo .grain { position:absolute; inset:0; background:radial-gradient(circle at 30% 22%, rgba(255,255,255,0.32), transparent 55%); background-size:cover; background-position:center; background-repeat:no-repeat; transition:transform .5s ease; }
+  .photo.rose { background:linear-gradient(150deg,#EFA7BC,#C8336B); }
+  .photo.blush { background:linear-gradient(150deg,#F7E0D6,#E2A9AE); }
+  .photo.deep { background:linear-gradient(150deg,#7A2546,#3E1626); }
+  .photo.sand { background:linear-gradient(150deg,#F0E4D2,#D9C3A2); }
+  .photo.plum { background:linear-gradient(150deg,#B79BC7,#7C5E97); }
+  .photo.mauve { background:linear-gradient(150deg,#E7C2CE,#C98FA6); }
+
+  /* ─── NAV ─── */
+  header.nav { position:sticky; top:0; z-index:50; background:rgba(250,250,250,0.82); backdrop-filter:blur(14px); border-bottom:1px solid var(--divider); }
+  .nav-in { display:flex; align-items:center; justify-content:space-between; height:72px; }
+  .brand { display:flex; align-items:center; gap:10px; }
+  .brand .name { font-family:var(--serif); font-size:24px; letter-spacing:0.10em; }
+  .nav-links { display:flex; align-items:center; gap:34px; }
+  .nav-links a { font-size:14px; color:var(--ink-2); transition:color .2s; }
+  .nav-links a:hover { color:var(--ink); }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; border-radius:14px; font-family:var(--sans); font-weight:500; font-size:14px; height:46px; padding:0 22px; border:none; cursor:pointer; transition:transform .15s, background .2s; }
+  .btn:hover { transform:translateY(-1px); }
+  .btn.rose { background:var(--rose); color:#fff; }
+  .btn.rose:hover { background:var(--rose-deep); }
+  .btn.ghost { background:transparent; border:1px solid #DCD6CE; color:var(--ink); }
+  .btn.dark { background:var(--ink); color:#fff; }
+  .btn.lg { height:54px; padding:0 28px; font-size:15px; border-radius:16px; }
+
+  /* ─── HERO ─── */
+  .hero { padding:84px 0 72px; position:relative; overflow:hidden; }
+  .hero-grid { display:grid; grid-template-columns:1.05fr 0.95fr; gap:48px; align-items:center; }
+  .hero h1 { font-family:var(--serif); font-weight:500; font-size:74px; line-height:1.0; letter-spacing:-0.01em; margin:22px 0 0; }
+  .hero h1 .it { font-style:italic; color:var(--rose-deep); }
+  .hero .sub { font-weight:300; font-size:18px; line-height:1.7; color:#4d4544; max-width:480px; margin:24px 0 0; }
+  .hero .cta { display:flex; gap:14px; margin-top:34px; align-items:center; flex-wrap:wrap; }
+  .stores { display:flex; gap:12px; }
+  .store { display:inline-flex; align-items:center; gap:10px; height:58px; padding:0 20px; border-radius:14px; background:var(--ink); color:#fff; }
+  .store .s1 { font-size:10px; line-height:1.1; opacity:0.8; font-weight:300; }
+  .store .s2 { font-family:var(--serif); font-size:18px; line-height:1.1; white-space:nowrap; }
+  .launch-note { font-size:12.5px; color:var(--ink-2); font-weight:300; margin-top:12px; }
+  .hero .meta { display:flex; gap:28px; margin-top:32px; }
+  .hero .meta .it { font-size:32px; color:var(--ink); }
+  .hero .meta .lab { font-size:12px; color:var(--ink-2); font-weight:300; margin-top:2px; }
+
+  /* phone in hero */
+  .hero-art { display:flex; align-items:center; justify-content:center; position:relative; }
+  .hero-art .halo { position:absolute; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(245,230,238,0.9), rgba(245,230,238,0) 68%); }
+  .hero-shot { position:relative; z-index:2; width:100%; max-width:300px; height:auto; border-radius:34px; box-shadow:0 40px 80px -22px rgba(40,10,25,0.42), 0 2px 6px rgba(40,10,25,0.08); }
+
+  /* app showcase */
+  .showcase { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; align-items:start; }
+  .shot { display:flex; flex-direction:column; align-items:center; gap:18px; }
+  .shot img { width:100%; max-width:280px; height:auto; border-radius:30px; box-shadow:0 26px 54px -20px rgba(40,10,25,0.34), 0 1px 4px rgba(40,10,25,0.08); }
+  .shot.lift { transform:translateY(-26px); }
+  .shot .cap { text-align:center; }
+  .shot .cap .t { font-family:var(--serif); font-size:21px; }
+  .shot .cap .d { font-weight:300; font-size:13px; color:var(--ink-2); margin-top:2px; }
+  .phone { width:300px; height:620px; background:#0E0E0E; border-radius:42px; padding:9px; box-shadow:0 40px 80px -20px rgba(40,10,25,0.4); position:relative; z-index:2; }
+  .phone .screen { width:100%; height:100%; border-radius:34px; overflow:hidden; background:var(--bg); display:flex; flex-direction:column; position:relative; }
+  .ph-status { height:34px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; font-size:11px; font-weight:500; }
+  .ph-hero { height:230px; position:relative; }
+  .ph-hero .ov { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(62,22,38,0.1), rgba(62,22,38,0) 50%, var(--bg)); }
+  .ph-hero .greet { position:absolute; left:18px; bottom:18px; color:#fff; }
+  .ph-body { flex:1; padding:14px 16px; }
+  .ph-search { height:40px; border-radius:12px; background:var(--surface); border:1px solid var(--divider); display:flex; align-items:center; gap:8px; padding:0 12px; font-size:12px; color:var(--ink-2); font-weight:300; }
+  .ph-pills { display:flex; gap:7px; margin-top:12px; }
+  .ph-pill { height:28px; border-radius:999px; padding:0 12px; display:inline-flex; align-items:center; font-family:var(--serif); font-size:13px; background:var(--rose-soft); color:var(--rose-deep); }
+  .ph-pill.on { background:var(--rose); color:#fff; }
+  .ph-card { margin-top:13px; border-radius:14px; overflow:hidden; border:1px solid #ECE9E3; background:var(--surface); }
+  .ph-card .pc-ph { height:96px; }
+  .ph-card .pc-b { padding:9px 11px; }
+  .ph-card .pc-name { font-family:var(--serif); font-size:15px; display:flex; align-items:center; gap:4px; }
+  .ph-card .pc-meta { font-size:10px; color:var(--ink-2); font-weight:300; margin-top:1px; }
+  .ph-card .pc-row { display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
+  .ph-chip { font-size:9.5px; padding:3px 7px; border-radius:999px; background:var(--rose-soft); color:var(--rose-deep); }
+  .ph-tab { margin:0 14px 12px; height:50px; border-radius:24px; background:#fff; border:1px solid var(--divider); box-shadow:0 8px 20px rgba(40,10,25,0.08); display:flex; align-items:center; justify-content:space-around; }
+  .ph-tab .ti { width:20px; height:20px; color:#C9BDB4; }
+  .ph-tab .ti.on { color:var(--rose); }
+
+  /* ─── LOGO STRIP ─── */
+  .strip { border-top:1px solid var(--divider); border-bottom:1px solid var(--divider); padding:26px 0; }
+  .strip-in { display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap; }
+  .strip .lbl { font-family:var(--mono); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
+  .strip .cities { display:flex; gap:34px; flex-wrap:wrap; }
+  .strip .cities span { font-family:var(--serif); font-size:22px; color:#B8AEA4; }
+
+  /* ─── SECTION shell ─── */
+  section { padding:92px 0; }
+  .sec-head { text-align:center; max-width:640px; margin:0 auto 56px; }
+  .sec-head h2 { font-family:var(--serif); font-weight:500; font-size:46px; line-height:1.08; margin:14px 0 0; }
+  .sec-head h2 .it { font-style:italic; color:var(--rose-deep); }
+  .sec-head p { font-weight:300; font-size:16px; line-height:1.7; color:#4d4544; margin:16px 0 0; }
+
+  /* categories */
+  .discover-split { display:grid; grid-template-columns:300px 1fr; gap:60px; align-items:center; }
+  .dp { display:flex; justify-content:center; position:relative; }
+  .dp::before { content:""; position:absolute; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle, rgba(245,230,238,0.9), rgba(245,230,238,0) 68%); }
+  .dp img { position:relative; z-index:2; width:100%; max-width:280px; height:auto; border-radius:32px; box-shadow:0 34px 70px -20px rgba(40,10,25,0.34), 0 1px 4px rgba(40,10,25,0.08); }
+  .dcontent .eyebrow { display:block; }
+  .dh { font-family:var(--serif); font-weight:500; font-size:46px; line-height:1.08; margin:14px 0 0; }
+  .dh .it { font-style:italic; color:var(--rose-deep); }
+  .dpara { font-weight:300; font-size:16px; line-height:1.7; color:#4d4544; margin:16px 0 30px; max-width:460px; }
+  .cats { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .cat { border-radius:18px; overflow:hidden; position:relative; aspect-ratio:1.5; display:flex; align-items:flex-end; cursor:pointer; }
+  .cat.wide { grid-column:1 / -1; aspect-ratio:3.1; }
+  .cat .ov { position:absolute; inset:0; background:linear-gradient(to top, rgba(20,8,14,0.62), rgba(20,8,14,0) 62%); }
+  .cat .ctx { position:relative; z-index:2; padding:14px 18px; display:flex; flex-direction:column; gap:5px; }
+  .cat .nm { font-family:var(--serif); font-size:24px; line-height:1; color:#fff; }
+  .cat .meta { font-family:var(--sans); font-weight:300; font-size:12px; line-height:1.4; color:rgba(255,255,255,0.82); display:flex; flex-direction:column; gap:3px; }
+  .cat .meta i { font-style:normal; font-weight:500; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:rgba(255,255,255,0.62); }
+  .cat.wide .meta { flex-direction:row; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  .cat.wide .meta i { color:#fff; font-weight:600; }
+  .cat:hover .grain { transform:scale(1.06); transition:transform .5s; }
+
+  /* how it works */
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:36px; }
+  .step { text-align:center; }
+  .step .no { font-family:var(--mono); font-size:11px; letter-spacing:0.14em; color:var(--rose); }
+  .step .ic { width:72px; height:72px; border-radius:50%; background:var(--rose-soft); display:flex; align-items:center; justify-content:center; margin:14px auto 18px; }
+  .step h3 { font-family:var(--serif); font-weight:500; font-size:26px; margin:0; }
+  .step p { font-weight:300; font-size:15px; line-height:1.65; color:#4d4544; margin:10px auto 0; max-width:300px; }
+
+  /* featured artists */
+  .artists { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .artist { border-radius:20px; overflow:hidden; background:var(--surface); border:1px solid #ECE9E3; box-shadow:0 1px 2px rgba(26,26,26,0.04),0 2px 10px rgba(26,26,26,0.04); transition:transform .2s, box-shadow .2s; }
+  .artist:hover { transform:translateY(-3px); box-shadow:0 14px 30px rgba(40,10,25,0.12); }
+  .artist .a-ph { height:230px; position:relative; }
+  .artist .a-ph .av { position:absolute; left:18px; bottom:-26px; width:60px; height:60px; border-radius:50%; border:3px solid var(--surface); }
+  .artist .a-b { padding:34px 20px 20px; }
+  .artist .a-name { font-family:var(--serif); font-size:23px; display:flex; align-items:center; gap:6px; }
+  .artist .a-meta { font-size:13px; color:var(--ink-2); font-weight:300; margin-top:2px; }
+  .artist .a-row { display:flex; align-items:center; justify-content:space-between; margin-top:14px; padding-top:14px; border-top:1px solid var(--divider); }
+  .artist .a-price { font-family:var(--serif); font-size:20px; }
+  .artist .a-rate { display:flex; align-items:center; gap:5px; font-family:var(--serif); font-size:17px; }
+  .verified { width:17px; height:17px; }
+
+  /* split / for artists */
+  .split { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+  .split.alt { background:var(--ink); border-radius:28px; padding:56px; color:#fff; }
+  .split.alt .eyebrow { color:#E79CB4; }
+  .split h2 { font-family:var(--serif); font-weight:500; font-size:44px; line-height:1.08; margin:14px 0 0; }
+  .split p { font-weight:300; font-size:16px; line-height:1.7; margin:18px 0 0; color:rgba(255,255,255,0.72); }
+  .split ul { list-style:none; padding:0; margin:24px 0 0; display:flex; flex-direction:column; gap:13px; }
+  .split li { display:flex; align-items:center; gap:12px; font-size:15px; font-weight:300; color:rgba(255,255,255,0.86); }
+  .split li .tick { width:22px; height:22px; border-radius:50%; background:rgba(231,156,180,0.2); display:flex; align-items:center; justify-content:center; flex:0 0 22px; }
+  .split .art-ph { display:flex; align-items:center; justify-content:center; }
+  .split .art-ph img { width:auto; max-height:440px; max-width:100%; border-radius:26px; box-shadow:0 30px 64px -18px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3); }
+
+  /* big CTA */
+  .cta-band { text-align:center; padding:108px 0; position:relative; overflow:hidden; }
+  .cta-band .halo { position:absolute; left:50%; top:40%; transform:translate(-50%,-50%); width:560px; height:560px; border-radius:50%; background:radial-gradient(circle, rgba(245,230,238,0.85), rgba(245,230,238,0) 68%); }
+  .cta-band h2 { font-family:var(--serif); font-weight:500; font-size:60px; line-height:1.02; margin:22px 0 0; position:relative; z-index:2; }
+  .cta-band h2 .it { font-style:italic; color:var(--rose-deep); }
+  .cta-band .cta { display:flex; gap:14px; justify-content:center; margin-top:32px; position:relative; z-index:2; }
+  .waitlist-card { position:relative; z-index:2; width:min(620px,100%); margin:34px auto 0; padding:22px; border:1px solid #E8D9DF; border-radius:20px; background:rgba(255,255,255,0.72); box-shadow:0 20px 52px -34px rgba(40,10,25,0.32); }
+  .waitlist-card p { margin:0 0 16px; font-weight:300; line-height:1.65; color:#4d4544; }
+  .waitlist-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+  /* footer */
+  footer { border-top:1px solid var(--divider); padding:62px 0 40px; }
+  .foot-grid { display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px; }
+  .foot-brand .name { font-family:var(--serif); font-size:24px; letter-spacing:0.10em; }
+  .foot-brand p { font-weight:300; font-size:14px; line-height:1.65; color:var(--ink-2); margin:14px 0 0; max-width:280px; }
+  .foot-col h4 { font-family:var(--mono); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); margin:0 0 16px; font-weight:400; }
+  .foot-col a { display:block; font-size:14px; color:#4d4544; margin-bottom:11px; font-weight:300; transition:color .2s; }
+  .foot-col a:hover { color:var(--rose); }
+  .foot-bottom { display:flex; align-items:center; justify-content:space-between; margin-top:52px; padding-top:24px; border-top:1px solid var(--divider); }
+  .foot-bottom .cp { font-size:12.5px; color:var(--ink-2); font-weight:300; }
+  .foot-bottom .lang { font-size:13px; color:var(--ink-2); }
+
+  @media (max-width:980px) {
+    .hero-grid { grid-template-columns:1fr; }
+    .hero-art { order:-1; }
+    .hero h1 { font-size:58px; }
+    .nav-links { display:none; }
+    .discover-split { grid-template-columns:1fr; gap:32px; }
+    .dp img { width:240px; }
+    .cats { grid-template-columns:repeat(2,1fr); }
+    .showcase { grid-template-columns:1fr; }
+    .shot.lift { transform:none; }
+    .steps, .artists { grid-template-columns:1fr; }
+    .split, .foot-grid { grid-template-columns:1fr; }
+    .split.alt { padding:36px; }
+  }
+
+  @media (max-width:560px) {
+    .wrap { padding:0 22px; }
+    section { padding:60px 0; }
+    .hero { padding-top:0; }
+    .hero h1 { font-size:42px; }
+    .sec-head { margin-bottom:38px; }
+    .sec-head h2, .dh { font-size:34px; }
+    .cta-band { padding:72px 0; }
+    .cta-band h2 { font-size:38px; }
+    .hero-art .halo { width:300px; height:300px; }
+    .cats { gap:12px; }
+    .cat .nm { font-size:21px; }
+    .hero .meta { gap:18px; flex-wrap:wrap; }
+    .store { width:100%; justify-content:center; }
+    .stores { width:100%; flex-direction:column; }
+    .btn.lg { width:100%; }
+    .waitlist-actions .btn { width:100%; }
+    .meta-row, .meta { font-size:11.5px; }
+    .foot-bottom { flex-direction:column; gap:14px; align-items:flex-start; }
+    .strip-in { gap:14px; }
+    .strip .cities { gap:18px; }
+    .strip .cities span { font-size:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="brand">
+      <span class="mark-slot" data-mode="simple" data-size="30" data-stroke="#C8336B" data-fill="#F5E6EE"></span>
+      <span class="name">LYORA</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#discover">Discover</a>
+      <a href="#showcase">The app</a>
+      <a href="#how">How it works</a>
+      <a href="#providers">For artists</a>
+    </nav>
+    <a class="btn rose" href="#get">Join the waitlist</a>
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Beauty, on your terms · Cairo</div>
+      <h1>Book the artist<br/>behind the <span class="it">moment.</span></h1>
+      <p class="sub">LYORA connects you with the region's most trusted hair, makeup, nail and bridal artists — at their studio, or yours. Verified work, real reviews, instant booking.</p>
+      <div class="cta">
+        <div class="stores">
+          <a class="store" href="#get">
+            <svg width="20" height="22" viewBox="0 0 15 17" fill="currentColor"><path d="M12.5 13.1c-.3.7-.6 1.3-1 1.9-.6.8-1 1.4-1.4 1.6-.5.3-1 .4-1.6.5-.4 0-.9-.1-1.5-.3-.6-.2-1.1-.3-1.5-.3-.5 0-1 .1-1.6.3-.6.2-1 .3-1.4.3-.5 0-1-.1-1.5-.5-.4-.3-.9-.9-1.4-1.7C.8 13.5.3 12 .3 10.5c0-1.6.4-2.9 1.1-3.7.5-.7 1.3-1.1 2.2-1.1.4 0 .9.1 1.5.3.6.2 1 .3 1.1.3.2 0 .6-.1 1.3-.4.6-.2 1.2-.3 1.6-.3 1.2.1 2.1.6 2.7 1.4-1.1.7-1.6 1.6-1.6 2.8 0 .9.3 1.7 1 2.3.3.3.6.5 1 .6-.1.2-.2.5-.3.7zM9.6.3c0 .6-.2 1.2-.7 1.8-.5.6-1.2 1-1.9.9 0-.6.2-1.2.7-1.8C8.1.6 8.6.3 9.2.1c.2 0 .3 0 .4.2z"/></svg>
+            <span><span class="s1">Launching soon</span><br/><span class="s2">iPhone waitlist</span></span>
+          </a>
+          <a class="store" href="#get">
+            <svg width="19" height="21" viewBox="0 0 18 20" fill="none"><path d="M1 1.5v17l9.5-8.5L1 1.5z" fill="#fff"/><path d="M1 1.5l9.5 8.5L14 6.8 2.4 0.6C1.9.3 1.3.6 1 1.5z" fill="#E79CB4"/><path d="M1 18.5l9.5-8.5L14 13.2 2.4 19.4c-.5.3-1.1 0-1.4-.9z" fill="#C8336B"/><path d="M10.5 10L14 6.8 17 8.6c.8.5.8 1.4 0 1.9L14 13.2 10.5 10z" fill="#F5E6EE"/></svg>
+            <span><span class="s1">Launching soon</span><br/><span class="s2">Android waitlist</span></span>
+          </a>
+        </div>
+      </div>
+      <div class="launch-note">Early access for clients, artists and salon teams in Cairo.</div>
+      <div class="meta">
+        <div><div class="ital">1,200+</div><div class="lab">verified artists</div></div>
+        <div><div class="ital">4.9★</div><div class="lab">average rating</div></div>
+        <div><div class="ital">40k</div><div class="lab">moments booked</div></div>
+      </div>
+    </div>
+
+    <!-- phone — real app screenshot -->
+    <div class="hero-art">
+      <div class="halo"></div>
+      <img class="hero-shot" src="assets/o-00-welcome.png" alt="LYORA app — welcome screen" width="300" loading="eager"/>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CITY STRIP ─── -->
+<div class="strip">
+  <div class="wrap strip-in">
+    <span class="lbl">Now serving</span>
+    <div class="cities">
+      <span>Cairo</span><span>Zamalek</span><span>New Cairo</span><span>Sheikh Zayed</span><span>Alexandria</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CATEGORIES ─── -->
+<section id="discover">
+  <div class="wrap">
+    <div class="discover-split">
+      <div class="dp">
+        <img src="assets/o-03-search.png" alt="LYORA app — search results for specialists"/>
+      </div>
+      <div class="dcontent">
+        <div class="eyebrow">Every kind of beautiful</div>
+        <h2 class="dh">Find your <span class="it">specialist.</span></h2>
+        <p class="dpara">From a Tuesday blow-dry to your wedding morning — filter by service, style, price and availability to find exactly the right hands.</p>
+        <div class="cats">
+          <a class="cat photo rose" href="#get" aria-label="Join the LYORA waitlist for hair bookings"><div class="grain" style="background-image:url('assets/cat/hair.png')"></div><div class="ov"></div><div class="ctx"><span class="nm">Hair</span><span class="meta">Cuts · color · blowouts<i>320+ artists</i></span></div></a>
+          <a class="cat photo mauve" href="#get" aria-label="Join the LYORA waitlist for makeup bookings"><div class="grain" style="background-image:url('assets/cat/makeup.png')"></div><div class="ov"></div><div class="ctx"><span class="nm">Makeup</span><span class="meta">Glam · editorial · natural<i>240+ artists</i></span></div></a>
+          <a class="cat photo blush" href="#get" aria-label="Join the LYORA waitlist for nail bookings"><div class="grain" style="background-image:url('assets/cat/nails.png')"></div><div class="ov"></div><div class="ctx"><span class="nm">Nails</span><span class="meta">Gel · art · extensions<i>180+ artists</i></span></div></a>
+          <a class="cat photo plum" href="#get" aria-label="Join the LYORA waitlist for lash bookings"><div class="grain" style="background-image:url('assets/cat/lashes.png')"></div><div class="ov"></div><div class="ctx"><span class="nm">Lashes</span><span class="meta">Lifts · extensions · tints<i>140+ artists</i></span></div></a>
+          <a class="cat photo deep wide" href="#get" aria-label="Join the LYORA waitlist for bridal bookings"><div class="grain" style="background-image:url('assets/cat/bridal.png');background-position:center 38%"></div><div class="ov"></div><div class="ctx"><span class="nm">Bridal</span><span class="meta">Your wedding-morning team — hair, makeup & touch-ups, on location<i>from EGP 4,500</i></span></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section id="how" style="background:var(--rose-soft);">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Three taps to glow</div>
+      <h2>How <span class="it">LYORA</span> works.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="no">01</div>
+        <div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="7" stroke="var(--rose)" stroke-width="1.6"/><path d="M15.5 15.5L21 21" stroke="var(--rose)" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3>Discover</h3>
+        <p>Browse verified artists near you — filtered by service, style, price and availability.</p>
+      </div>
+      <div class="step">
+        <div class="no">02</div>
+        <div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="16" rx="2.5" stroke="var(--rose)" stroke-width="1.6"/><path d="M3.5 9.5h17M8 3v3M16 3v3" stroke="var(--rose)" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="15" r="1.6" fill="var(--rose)"/></svg></div>
+        <h3>Book</h3>
+        <p>Pick a service, a time, and where — their studio or your home. Confirm in seconds.</p>
+      </div>
+      <div class="step">
+        <div class="no">03</div>
+        <div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 3c-3.3 0-6 2.7-6 6 0 4.5 6 12 6 12s6-7.5 6-12c0-3.3-2.7-6-6-6z" stroke="var(--rose)" stroke-width="1.6"/><circle cx="12" cy="9" r="2.2" fill="var(--rose)"/></svg></div>
+        <h3>Glow</h3>
+        <p>Show up — or stay in. Pay in the app, rate the work, rebook your favourites in a tap.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── APP SHOWCASE ─── -->
+<section id="showcase">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Designed to feel like a treat</div>
+      <h2>The whole salon, in your <span class="it">pocket.</span></h2>
+      <p>Real screens from the LYORA app — browse, choose your artist, and book in a few graceful taps.</p>
+    </div>
+    <div class="showcase">
+      <div class="shot">
+        <img src="assets/o-02-home.png" alt="LYORA app — discover artists"/>
+        <div class="cap"><div class="t">Discover</div><div class="d">Verified artists, near you</div></div>
+      </div>
+      <div class="shot lift">
+        <img src="assets/o-04-profile.png" alt="LYORA app — artist profile & portfolio"/>
+        <div class="cap"><div class="t">Explore</div><div class="d">Portfolios, reviews & rates</div></div>
+      </div>
+      <div class="shot">
+        <img src="assets/o-05-booking.png" alt="LYORA app — booking flow"/>
+        <div class="cap"><div class="t">Book</div><div class="d">Pick a time, studio or home</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOR ARTISTS ─── -->
+<section id="providers">
+  <div class="wrap">
+    <div class="split alt">
+      <div>
+        <div class="eyebrow">For artists & salons</div>
+        <h2>Your chair, always full.</h2>
+        <p>Turn your craft into a business. LYORA brings you clients, handles the booking and payments, and shows off your portfolio — so you can do what you love.</p>
+        <ul>
+          <li><span class="tick"><svg width="11" height="11" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#E79CB4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Fill last-minute gaps with instant bookings</li>
+          <li><span class="tick"><svg width="11" height="11" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#E79CB4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Get paid in-app — no chasing, no cash</li>
+          <li><span class="tick"><svg width="11" height="11" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#E79CB4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Build a verified profile clients trust</li>
+        </ul>
+        <a class="btn rose lg" href="mailto:hello@lyora.com?subject=Artist%20application%20for%20LYORA" style="margin-top:30px;">Become a LYORA artist</a>
+      </div>
+      <div class="art-ph"><img src="assets/o-14-dashboard.png" alt="LYORA app — salon dashboard, today's chair schedule"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BIG CTA ─── -->
+<div id="get" class="cta-band">
+  <div class="halo"></div>
+  <div class="wrap" style="display:flex; flex-direction:column; align-items:center;">
+    <span class="mark-slot" data-mode="detail" data-size="64" data-stroke="#C8336B" data-fill="#F5E6EE"></span>
+    <h2>The light of this moment<br/>is <span class="it">one tap away.</span></h2>
+    <div class="cta">
+      <a class="btn dark lg" href="mailto:hello@lyora.com?subject=Join%20the%20LYORA%20waitlist"><svg width="18" height="20" viewBox="0 0 15 17" fill="currentColor"><path d="M12.5 13.1c-.3.7-.6 1.3-1 1.9-.6.8-1 1.4-1.4 1.6-.5.3-1 .4-1.6.5-.4 0-.9-.1-1.5-.3-.6-.2-1.1-.3-1.5-.3-.5 0-1 .1-1.6.3-.6.2-1 .3-1.4.3-.5 0-1-.1-1.5-.5-.4-.3-.9-.9-1.4-1.7C.8 13.5.3 12 .3 10.5c0-1.6.4-2.9 1.1-3.7.5-.7 1.3-1.1 2.2-1.1.4 0 .9.1 1.5.3.6.2 1 .3 1.1.3.2 0 .6-.1 1.3-.4.6-.2 1.2-.3 1.6-.3 1.2.1 2.1.6 2.7 1.4-1.1.7-1.6 1.6-1.6 2.8 0 .9.3 1.7 1 2.3.3.3.6.5 1 .6-.1.2-.2.5-.3.7zM9.6.3c0 .6-.2 1.2-.7 1.8-.5.6-1.2 1-1.9.9 0-.6.2-1.2.7-1.8C8.1.6 8.6.3 9.2.1c.2 0 .3 0 .4.2z"/></svg>Client waitlist</a>
+      <a class="btn dark lg" href="mailto:hello@lyora.com?subject=Provider%20interest%20for%20LYORA"><svg width="17" height="19" viewBox="0 0 18 20" fill="none"><path d="M1 1.5v17l9.5-8.5L1 1.5z" fill="#fff"/><path d="M1 1.5l9.5 8.5L14 6.8 2.4 0.6C1.9.3 1.3.6 1 1.5z" fill="#E79CB4"/><path d="M1 18.5l9.5-8.5L14 13.2 2.4 19.4c-.5.3-1.1 0-1.4-.9z" fill="#C8336B"/><path d="M10.5 10L14 6.8 17 8.6c.8.5.8 1.4 0 1.9L14 13.2 10.5 10z" fill="#F5E6EE"/></svg>Artist access</a>
+    </div>
+    <div class="waitlist-card">
+      <p>Launching first in Cairo. Tell us whether you are booking, offering services, or managing a salon team, and LYORA will follow up when early access opens.</p>
+      <div class="waitlist-actions">
+        <a class="btn ghost" href="mailto:hello@lyora.com?subject=LYORA%20client%20waitlist">I want to book</a>
+        <a class="btn ghost" href="mailto:hello@lyora.com?subject=LYORA%20artist%20access">I am an artist</a>
+        <a class="btn ghost" href="mailto:hello@lyora.com?subject=LYORA%20salon%20partnership">I run a salon</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand"><span class="mark-slot" data-mode="simple" data-size="28" data-stroke="#C8336B" data-fill="#F5E6EE"></span><span class="name">LYORA</span></div>
+        <p>The beauty marketplace for the modern Middle East. Book trusted artists for hair, makeup, nails and bridal — at their place or yours.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Discover</h4>
+        <a href="#discover">Hair</a><a href="#discover">Makeup</a><a href="#discover">Nails</a><a href="#discover">Bridal</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#showcase">About</a><a href="#providers">For artists</a><a href="mailto:hello@lyora.com?subject=Careers%20at%20LYORA">Careers</a><a href="mailto:hello@lyora.com?subject=Press%20inquiry%20for%20LYORA">Press</a>
+      </div>
+      <div class="foot-col">
+        <h4>Support</h4>
+        <a href="mailto:hello@lyora.com?subject=LYORA%20support">Help centre</a><a href="mailto:hello@lyora.com?subject=Contact%20LYORA">Contact</a><a href="mailto:hello@lyora.com?subject=LYORA%20terms%20request">Terms</a><a href="mailto:hello@lyora.com?subject=LYORA%20privacy%20request">Privacy</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="cp">© 2026 LYORA. The light of this moment.</span>
+      <span class="lang">EN ⇄ عربي</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var PETAL = "M0 0 C 21 -23 27 -57 0 -96 C -27 -57 -21 -23 0 0 Z";
+    var VEIN  = "M0 -11 C 4 -42 2 -70 0 -88";
+    var ROT   = [0, 72, 144, 216, 288];
+    var GAP   = [36, 108, 180, 252, 324];
+    function build(size, o) {
+      var s = o.stroke, fill = o.fill, heart = o.heart || s, detail = o.mode !== 'simple';
+      var n = parseFloat(size);
+      var sw = detail ? 3 : Math.max(3, n * 0.05);
+      var parts = '';
+      if (fill && fill !== 'none') parts += ROT.map(function(a){return '<path d="'+PETAL+'" transform="rotate('+a+')" fill="'+fill+'"/>';}).join('');
+      if (detail) parts += GAP.map(function(a){return '<g transform="rotate('+a+')"><line x1="0" y1="-17" x2="0" y2="-47" stroke="'+s+'" stroke-width="1.2" stroke-linecap="round"/><circle cx="0" cy="-51" r="3" fill="'+s+'"/></g>';}).join('');
+      parts += ROT.map(function(a){return '<path d="'+PETAL+'" transform="rotate('+a+')" fill="none" stroke="'+s+'" stroke-width="'+sw+'" stroke-linejoin="round"/>';}).join('');
+      if (detail) parts += ROT.map(function(a){return '<path d="'+VEIN+'" transform="rotate('+a+')" fill="none" stroke="'+s+'" stroke-width="1.3" stroke-linecap="round" opacity="0.75"/>';}).join('');
+      if (detail) parts += '<circle cx="0" cy="0" r="11" fill="'+(fill && fill!=='none'?fill:'#FFFFFF')+'"/><circle cx="0" cy="0" r="11" fill="none" stroke="'+s+'" stroke-width="2"/><circle cx="0" cy="0" r="3.4" fill="'+heart+'"/>';
+      else parts += '<circle cx="0" cy="0" r="13" fill="'+heart+'"/>';
+      return '<svg width="'+size+'" height="'+size+'" viewBox="-112 -112 224 224" aria-hidden="true">'+parts+'</svg>';
+    }
+    document.querySelectorAll('.mark-slot').forEach(function (slot) {
+      slot.innerHTML = build(slot.getAttribute('data-size') || '60', {
+        mode:   slot.getAttribute('data-mode') || 'detail',
+        stroke: slot.getAttribute('data-stroke') || '#C8336B',
+        fill:   slot.getAttribute('data-fill')   || 'none',
+        heart:  slot.getAttribute('data-heart')  || null
+      });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -35,7 +35,7 @@ Then configure DNS in Namecheap:
 
 ## Before launch
 
-The waitlist and contact links currently send to `elbarbary@aucegypt.edu`.
+The waitlist and contact links currently send to `support@lyora.beauty`.
 
 The onsite waitlist form submits into the linked Google Form/Sheet through a hidden iframe. The Google Sheet Apps Script sends the user confirmation email. A mailto fallback link remains in the form note.
 

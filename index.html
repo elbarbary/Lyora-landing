@@ -74,15 +74,21 @@
   .hero .meta .lab { font-size:12px; color:var(--ink-2); font-weight:300; margin-top:2px; }
 
   /* phone in hero */
-  .hero-art { display:flex; align-items:center; justify-content:center; position:relative; }
+  .hero-art { display:flex; align-items:center; justify-content:center; position:relative; min-height:560px; }
   .hero-art .halo { position:absolute; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(245,230,238,0.9), rgba(245,230,238,0) 68%); }
-  .hero-shot { position:relative; z-index:2; width:100%; max-width:300px; height:auto; border-radius:34px; box-shadow:0 40px 80px -22px rgba(40,10,25,0.42), 0 2px 6px rgba(40,10,25,0.08); }
+  .screen-stage { position:relative; z-index:2; display:flex; align-items:center; justify-content:center; isolation:isolate; }
+  .screen-stage::before { content:""; position:absolute; inset:7% -9% 5%; border-radius:42px; background:linear-gradient(145deg, rgba(255,255,255,.84), rgba(245,230,238,.44)); box-shadow:0 34px 80px -34px rgba(40,10,25,.38); z-index:-1; }
+  .screen-stage::after { content:""; position:absolute; left:18%; right:18%; bottom:-2%; height:16px; border-radius:999px; background:rgba(60,24,38,.12); filter:blur(10px); z-index:-2; }
+  .hero-stage { transform:none; }
+  .hero-shot { display:block; position:relative; z-index:2; width:100%; max-width:348px; height:auto; filter:drop-shadow(0 32px 38px rgba(40,10,25,.24)); }
 
   /* app showcase */
-  .showcase { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; align-items:start; }
-  .shot { display:flex; flex-direction:column; align-items:center; gap:18px; }
-  .shot img { width:100%; max-width:280px; height:auto; border-radius:30px; box-shadow:0 26px 54px -20px rgba(40,10,25,0.34), 0 1px 4px rgba(40,10,25,0.08); }
-  .shot.lift { transform:translateY(-26px); }
+  .showcase { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:34px; align-items:end; }
+  .shot { display:flex; flex-direction:column; align-items:center; gap:20px; padding-top:22px; }
+  .shot .device { width:min(100%,304px); display:flex; align-items:center; justify-content:center; border-radius:38px; background:linear-gradient(180deg, rgba(255,255,255,.52), rgba(245,230,238,.24)); box-shadow:0 28px 64px -40px rgba(40,10,25,.34); }
+  .shot .device img { display:block; width:100%; max-width:304px; height:auto; filter:drop-shadow(0 22px 22px rgba(40,10,25,.18)); }
+  .shot.lift { transform:translateY(-22px); }
+  .shot.lift .device { width:min(100%,326px); box-shadow:0 34px 76px -42px rgba(40,10,25,.4); }
   .shot .cap { text-align:center; }
   .shot .cap .t { font-family:var(--serif); font-size:21px; }
   .shot .cap .d { font-weight:300; font-size:13px; color:var(--ink-2); margin-top:2px; }
@@ -126,7 +132,8 @@
   .discover-split { display:grid; grid-template-columns:300px 1fr; gap:60px; align-items:center; }
   .dp { display:flex; justify-content:center; position:relative; }
   .dp::before { content:""; position:absolute; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle, rgba(245,230,238,0.9), rgba(245,230,238,0) 68%); }
-  .dp img { position:relative; z-index:2; width:100%; max-width:280px; height:auto; border-radius:32px; box-shadow:0 34px 70px -20px rgba(40,10,25,0.34), 0 1px 4px rgba(40,10,25,0.08); }
+  .dp .screen-stage { transform:none; }
+  .dp img { position:relative; z-index:2; width:100%; max-width:246px; height:auto; filter:drop-shadow(0 24px 28px rgba(40,10,25,.2)); }
   .dcontent .eyebrow { display:block; }
   .dh { font-family:var(--serif); font-weight:500; font-size:46px; line-height:1.08; margin:14px 0 0; }
   .dh .it { font-style:italic; color:var(--rose-deep); }
@@ -175,7 +182,8 @@
   .split li { display:flex; align-items:center; gap:12px; font-size:15px; font-weight:300; color:rgba(255,255,255,0.86); }
   .split li .tick { width:22px; height:22px; border-radius:50%; background:rgba(231,156,180,0.2); display:flex; align-items:center; justify-content:center; flex:0 0 22px; }
   .split .art-ph { display:flex; align-items:center; justify-content:center; }
-  .split .art-ph img { width:auto; max-height:440px; max-width:100%; border-radius:26px; box-shadow:0 30px 64px -18px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3); }
+  .split .art-ph .screen-stage::before { background:linear-gradient(145deg, rgba(255,255,255,.12), rgba(231,156,180,.12)); box-shadow:0 34px 76px -36px rgba(0,0,0,.72); }
+  .split .art-ph img { width:auto; max-height:440px; max-width:100%; filter:drop-shadow(0 24px 24px rgba(0,0,0,.34)); }
 
   /* big CTA */
   .cta-band { text-align:center; padding:108px 0; position:relative; overflow:hidden; }
@@ -220,6 +228,8 @@
     .cats { grid-template-columns:repeat(2,1fr); }
     .showcase { grid-template-columns:1fr; }
     .shot.lift { transform:none; }
+    .shot { padding-top:0; }
+    .shot .device, .shot.lift .device { width:min(100%,294px); }
     .steps, .artists { grid-template-columns:1fr; }
     .split, .foot-grid { grid-template-columns:1fr; }
     .split.alt { padding:36px; }
@@ -229,12 +239,16 @@
     .wrap { padding:0 22px; }
     section { padding:60px 0; }
     .hero { padding-top:0; }
+    .hero-art { min-height:auto; padding:10px 0 22px; }
     .hero h1 { font-size:42px; }
     .sec-head { margin-bottom:38px; }
     .sec-head h2, .dh { font-size:34px; }
     .cta-band { padding:72px 0; }
     .cta-band h2 { font-size:38px; }
     .hero-art .halo { width:300px; height:300px; }
+    .hero-stage { transform:none; }
+    .hero-shot { max-width:318px; }
+    .screen-stage::before { inset:6% -7% 4%; border-radius:36px; }
     .cats { gap:12px; }
     .cat .nm { font-size:21px; }
     .hero .meta { gap:18px; flex-wrap:wrap; }
@@ -301,7 +315,9 @@
     <!-- phone — real app screenshot -->
     <div class="hero-art">
       <div class="halo"></div>
-      <img class="hero-shot" src="assets/o-00-welcome.png" alt="LYORA app — welcome screen" width="300" loading="eager"/>
+      <div class="screen-stage hero-stage">
+        <img class="hero-shot" src="assets/phone-welcome.png" alt="LYORA app — welcome screen" width="348" loading="eager"/>
+      </div>
     </div>
   </div>
 </div>
@@ -321,7 +337,9 @@
   <div class="wrap">
     <div class="discover-split">
       <div class="dp">
-        <img src="assets/o-03-search.png" alt="LYORA app — search results for specialists"/>
+        <div class="screen-stage">
+          <img src="assets/phone-search.png" alt="LYORA app — search results for specialists"/>
+        </div>
       </div>
       <div class="dcontent">
         <div class="eyebrow">Every kind of beautiful</div>
@@ -379,15 +397,15 @@
     </div>
     <div class="showcase">
       <div class="shot">
-        <img src="assets/o-02-home.png" alt="LYORA app — discover artists"/>
+        <div class="device"><img src="assets/phone-home.png" alt="LYORA app — discover artists"/></div>
         <div class="cap"><div class="t">Discover</div><div class="d">Verified artists, near you</div></div>
       </div>
       <div class="shot lift">
-        <img src="assets/o-04-profile.png" alt="LYORA app — artist profile & portfolio"/>
+        <div class="device"><img src="assets/phone-profile.png" alt="LYORA app — artist profile & portfolio"/></div>
         <div class="cap"><div class="t">Explore</div><div class="d">Portfolios, reviews & rates</div></div>
       </div>
       <div class="shot">
-        <img src="assets/o-05-booking.png" alt="LYORA app — booking flow"/>
+        <div class="device"><img src="assets/phone-booking.png" alt="LYORA app — booking flow"/></div>
         <div class="cap"><div class="t">Book</div><div class="d">Pick a time, studio or home</div></div>
       </div>
     </div>
@@ -409,7 +427,11 @@
         </ul>
         <a class="btn rose lg" href="mailto:support@lyora.beauty?subject=Artist%20application%20for%20LYORA" style="margin-top:30px;">Become a LYORA artist</a>
       </div>
-      <div class="art-ph"><img src="assets/o-14-dashboard.png" alt="LYORA app — salon dashboard, today's chair schedule"/></div>
+      <div class="art-ph">
+        <div class="screen-stage">
+          <img src="assets/phone-dashboard.png" alt="LYORA app — salon dashboard, today's chair schedule"/>
+        </div>
+      </div>
     </div>
   </div>
 </section>

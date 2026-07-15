@@ -6,17 +6,17 @@
     <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://lyora.beauty/"/>
-    <xhtml:link rel="alternate" hreflang="en-EG" href="https://lyora.beauty/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://lyora.beauty/ar/"/>
+    <xhtml:link rel="alternate" hreflang="en-EG" href="https://lyora.beauty/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lyora.beauty/"/>
   </url>
   <url>
-    <loc>https://lyora.beauty/en/</loc>
+    <loc>https://lyora.beauty/ar/</loc>
     <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://lyora.beauty/"/>
-    <xhtml:link rel="alternate" hreflang="en-EG" href="https://lyora.beauty/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://lyora.beauty/ar/"/>
+    <xhtml:link rel="alternate" hreflang="en-EG" href="https://lyora.beauty/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lyora.beauty/"/>
   </url>
   <url>
@@ -24,17 +24,17 @@
     <lastmod>2026-07-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://lyora.beauty/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en-EG" href="https://lyora.beauty/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://lyora.beauty/ar/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en-EG" href="https://lyora.beauty/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lyora.beauty/privacy.html"/>
   </url>
   <url>
-    <loc>https://lyora.beauty/en/privacy.html</loc>
+    <loc>https://lyora.beauty/ar/privacy.html</loc>
     <lastmod>2026-07-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://lyora.beauty/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en-EG" href="https://lyora.beauty/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://lyora.beauty/ar/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en-EG" href="https://lyora.beauty/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lyora.beauty/privacy.html"/>
   </url>
 </urlset>

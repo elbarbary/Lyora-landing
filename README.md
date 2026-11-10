@@ -1,42 +1,33 @@
-# LYORA GitHub Pages Site
+# lyora.beauty
 
-This folder is ready for GitHub Pages.
+Static site served by GitHub Pages from `main` (custom domain in `CNAME`).
+Anything pushed to `main` is live within a minute or two.
 
-## Publish from GitHub
+## Pages
+| Path | What |
+|---|---|
+| `/` | English landing page |
+| `/ar/` | Arabic landing page (RTL) |
+| `/privacy.html`, `/ar/privacy.html` | Privacy policy (legal text — change only with counsel) |
+| `/en/`, `/en/privacy.html` | Redirects to the canonical English pages |
+| `404.html` | Not-found page |
 
-1. Create a new public GitHub repository.
-2. Upload everything in this folder to the repository root:
-   - `index.html`
-   - `assets/`
-   - `.nojekyll`
-   - optional: `CNAME` if you are using your own domain
-3. Go to repository **Settings -> Pages**.
-4. Under **Build and deployment**, choose:
-   - Source: `Deploy from a branch`
-   - Branch: `main`
-   - Folder: `/root`
-5. Save. GitHub will give you a URL like `https://yourname.github.io/repository-name/`.
+## Design
+- One stylesheet: `assets/site.css` — tokens at the top mirror the app
+  (`lib/core/constants/app_colors.dart`): rose `#C8336B`, ink `#1A1A1A`.
+- Fonts are self-hosted (`assets/fonts`, SIL OFL): Cormorant Garamond + DM Sans
+  for English, Noto Naskh Arabic + IBM Plex Sans Arabic for Arabic. No requests
+  to Google or any third party except the Android-waitlist Google Form.
+- App screens in `assets/screens` are real screenshots of the current app
+  (WebP, 600 px + 360 px). Replace them by regenerating from the app's widget
+  tests and converting to WebP at the same names.
+- `assets/site.js`: sticky header, mobile menu, gentle scroll reveal (off for
+  reduced motion), waitlist form status. No trackers.
 
-## Use your Namecheap domain
+## Booking links
+Artists' links live on `book.lyora.beauty/<handle>` (Firebase Hosting, in the
+app repo under `hosting/`). Once that subdomain is live, set
+`BOOK_LINKS_LIVE = true` in `404.html` so `lyora.beauty/<handle>` forwards to it.
 
-The included `CNAME` file points GitHub Pages to:
-
-```txt
-lyora.beauty
-```
-
-Update it if the production domain changes.
-
-Then configure DNS in Namecheap:
-
-- For `www`, add a `CNAME` record pointing to your GitHub Pages hostname, usually `YOUR-GITHUB-USERNAME.github.io`.
-- For the root domain, add GitHub Pages apex records in Namecheap's DNS panel.
-- In GitHub Pages settings, add the same custom domain and enable HTTPS after DNS finishes resolving.
-
-## Before launch
-
-The waitlist and contact links currently send to `support@lyora.beauty`.
-
-The onsite waitlist form submits into the linked Google Form/Sheet through a hidden iframe. The Google Sheet Apps Script sends the user confirmation email. A mailto fallback link remains in the form note.
-
-If the app store pages go live later, replace the waitlist links with the real App Store and Google Play URLs.
+## Rollback
+The previous site is preserved on the `legacy-site` branch.

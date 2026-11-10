@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — LYORA</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="wordmark" href="/" aria-label="LYORA home">LYORA</a>
+    <a class="lang" href="/ar/" lang="ar" hreflang="ar">العربية</a>
+  </div>
+</header>
+<main id="main" class="notfound">
+  <div class="wrap">
+    <p class="eyebrow">404</p>
+    <h1 class="h1">This page isn’t here.</h1>
+    <p class="lede" style="margin:0 auto 28px">Looking for an artist’s booking link? Ask her to share it again — it starts with <span dir="ltr">book.lyora.beauty/</span>.</p>
+    <div class="cta-row" style="justify-content:center">
+      <a class="btn btn-ink" href="/">Go to LYORA</a>
+      <a class="btn btn-line" href="/ar/" lang="ar">الصفحة الرئيسية</a>
+    </div>
+  </div>
+</main>
+<script>
+  // lyora.beauty/<handle> → the artist's booking page. Flip to true once
+  // book.lyora.beauty is connected to Firebase Hosting (see README).
+  var BOOK_LINKS_LIVE = false;
+  var m = location.pathname.match(/^\/([a-z0-9._-]{3,30})\/?$/i);
+  if (BOOK_LINKS_LIVE && m) location.replace('https://book.lyora.beauty/' + m[1].toLowerCase());
+</script>
+</body>
+</html>

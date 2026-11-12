@@ -27,28 +27,15 @@
 <link rel="preload" href="/assets/fonts/DMSans-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/site.css">
+<script>/* Ink curtain until the intro runs (first visit per session only). */
+(function(){var d=document.documentElement;try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('js-motion');if(!sessionStorage.getItem('lyora_intro'))d.classList.add('intro-pending')}catch(e){}setTimeout(function(){if(!d.classList.contains('motion'))d.classList.remove('js-motion','intro-pending')},3500)})();</script>
+<style>html.intro-pending::after{content:"";position:fixed;inset:0;background:#171515;z-index:99}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://lyora.beauty/#organization",
-      "name": "LYORA",
-      "url": "https://lyora.beauty/",
-      "logo": "https://lyora.beauty/assets/lyora-icon.png",
-      "email": "support@lyora.beauty",
-      "areaServed": "Cairo, Egypt"
-    },
-    {
-      "@type": "MobileApplication",
-      "name": "LYORA",
-      "operatingSystem": "iOS",
-      "applicationCategory": "LifestyleApplication",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EGP" },
-      "url": "https://apps.apple.com/app/id6783791717",
-      "publisher": { "@id": "https://lyora.beauty/#organization" }
-    }
+    { "@type": "Organization", "@id": "https://lyora.beauty/#organization", "name": "LYORA", "url": "https://lyora.beauty/", "logo": "https://lyora.beauty/assets/lyora-icon.png", "email": "support@lyora.beauty", "areaServed": "Cairo, Egypt" },
+    { "@type": "MobileApplication", "name": "LYORA", "operatingSystem": "iOS", "applicationCategory": "LifestyleApplication", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EGP" }, "url": "https://apps.apple.com/app/id6783791717", "publisher": { "@id": "https://lyora.beauty/#organization" } }
   ]
 }
 </script>
@@ -76,15 +63,21 @@
 
 <main id="main">
 
-  <!-- Hero -->
-  <section class="hero">
+  <!-- ═══ Hero ═══ -->
+  <section class="hero" data-intro-tag="Beauty booking · Cairo">
+    <canvas class="hero-bg" aria-hidden="true"></canvas>
     <div class="wrap hero-grid">
-      <div>
+      <div class="hero-copy">
         <span class="eyebrow">Beauty booking in Cairo</span>
-        <h1 class="h1">Book Cairo’s beauty artists, <em class="accent">without the back&#8209;and&#8209;forth.</em></h1>
+        <h1 class="h1">
+          <span class="line"><span>Book Cairo’s</span></span>
+          <span class="line"><span>beauty artists,</span></span>
+          <span class="line"><span><em class="accent">without the</em></span></span>
+          <span class="line"><span><em class="accent">back&#8209;and&#8209;forth.</em></span></span>
+        </h1>
         <p class="lede">See her real prices and the times she’s actually free, book in a few taps, and send your deposit straight to the artist on InstaPay. Makeup, hair, nails, lashes and bridal.</p>
         <div class="cta-row">
-          <a class="btn btn-ink store" href="https://apps.apple.com/app/id6783791717" rel="noopener">
+          <a class="btn btn-ink store magnetic" href="https://apps.apple.com/app/id6783791717" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.05 1.6 2.24 2.73 2.2 1.1-.05 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.33-3.53zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.64-1.05 1.68-.92 2.67.97.07 1.96-.49 2.56-1.22z"/></svg>
             <span><small>Download on the</small><b>App Store</b></span>
           </a>
@@ -95,147 +88,215 @@
         </div>
         <p class="hero-note">Free for clients. Artists — <a class="link-arrow" href="#artists">see how LYORA works for you</a>.</p>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="phone back"><div class="screen"><img src="/assets/screens/home.webp" srcset="/assets/screens/home-sm.webp 360w, /assets/screens/home.webp 600w" sizes="250px" alt="" width="600" height="1304" fetchpriority="low"></div></div>
-        <div class="phone"><div class="screen"><img src="/assets/screens/profile.webp" srcset="/assets/screens/profile-sm.webp 360w, /assets/screens/profile.webp 600w" sizes="300px" alt="" width="600" height="1304" fetchpriority="high"></div></div>
+
+      <div class="stage">
+        <p class="sr">A short demo of the LYORA app: choosing a date and a free time with Yasmin, requesting the booking, the booking being confirmed, and the deposit being received.</p>
+        <div class="demo-phone" aria-hidden="true">
+          <div class="demo">
+            <span class="d-status">9:41</span>
+            <div class="d-top">
+              <img class="d-ava" src="/assets/demo/yasmin.webp" alt="" width="96" height="96">
+              <div><b>Yasmin Adel <svg class="d-verified" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 2.1 3.2-.3.9 3.1 2.8 1.6-1.2 3 1.2 3-2.8 1.6-.9 3.1-3.2-.3L12 22l-2.4-2.1-3.2.3-.9-3.1-2.8-1.6 1.2-3-1.2-3 2.8-1.6.9-3.1 3.2.3z"/><path d="m8.5 12 2.4 2.4 4.6-4.8" fill="none" stroke="#fff" stroke-width="2"/></svg></b><small>Bridal · Soft glam · ★ 4.9</small></div>
+            </div>
+            <div class="d-service"><b>Soft Glam · 60 min</b><span>EGP 1,500</span></div>
+            <div class="d-label">Select date</div>
+            <div class="d-dates">
+              <div class="d-date"><small>Sat</small><b>14</b></div>
+              <div class="d-date"><small>Sun</small><b>15</b></div>
+              <div class="d-date on" data-pick><small>Mon</small><b>16</b></div>
+              <div class="d-date"><small>Tue</small><b>17</b></div>
+              <div class="d-date"><small>Wed</small><b>18</b></div>
+            </div>
+            <div class="d-label">Select time</div>
+            <div class="d-slots">
+              <div class="d-slot taken">11:00</div><div class="d-slot">12:30</div><div class="d-slot taken">14:00</div><div class="d-slot">15:00</div>
+              <div class="d-slot on" data-pick>16:30</div><div class="d-slot">17:00</div><div class="d-slot taken">18:30</div><div class="d-slot">19:00</div>
+            </div>
+            <div class="d-policy on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 4 6v5.5c0 4.7 3.4 8.7 8 9.7 4.6-1 8-5 8-9.7V6l-8-3.2z"/></svg><span>EGP 300 deposit by InstaPay · free cancellation up to 24 h before</span></div>
+            <div class="d-total"><span>Total</span><b>EGP 1,500</b></div>
+            <div class="d-cta ok">
+              <span class="s1">Request booking</span>
+              <span class="s2">Sending request…</span>
+              <span class="s3"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Booking confirmed</span>
+              <i class="bar"></i>
+            </div>
+            <span class="d-finger"></span>
+          </div>
+        </div>
+        <div class="float toast" aria-hidden="true">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          <span><b>Deposit received</b><small>EGP 300 · InstaPay to Yasmin</small></span>
+        </div>
+        <div class="float chip-a" aria-hidden="true">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
+          <span><b>Real prices</b><small>Every service, up front</small></span>
+        </div>
+        <div class="float chip-b" aria-hidden="true">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg></span>
+          <span><b>Only her free times</b><small>No double bookings</small></span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Facts -->
-  <section class="facts" aria-label="Why LYORA">
-    <ul class="wrap">
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg><span><strong>Real prices</strong>Every service priced up front</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg><span><strong>Real open times</strong>Only slots she’s actually free</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 4 6v5.5c0 4.7 3.4 8.7 8 9.7 4.6-1 8-5 8-9.7V6l-8-3.2z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg><span><strong>Honest reviews</strong>Only from completed bookings</span></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M2.5 10h19M6.5 14.5h4"/></svg><span><strong>Deposits on InstaPay</strong>Straight to the artist</span></li>
-    </ul>
-  </section>
+  <!-- ═══ Marquee ═══ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <span class="marquee-item">Makeup</span><span class="marquee-dot"></span>
+        <span class="marquee-item outline">Hair</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Bridal</span><span class="marquee-dot"></span>
+        <span class="marquee-item outline">Nails</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Lashes</span><span class="marquee-dot"></span>
+        <span class="marquee-item outline">Soft glam</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Home visits</span><span class="marquee-dot"></span>
+      </div>
+    </div>
+  </div>
 
-  <!-- Clients -->
+  <!-- ═══ Clients: sticky phone story ═══ -->
   <section class="section" id="clients">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">For clients</span>
         <h2 class="h2">Know the price, the time and the rules <em class="accent">before</em> you book.</h2>
       </div>
-
-      <div class="feature reveal">
-        <div class="feature-copy">
-          <h3 class="h3">Pick a service. Pick a free time. Done.</h3>
-          <p>Every artist lists her services with prices and how long they take. You choose from the times she’s really free — at her studio, at a salon, or at your home — instead of asking in DMs and waiting.</p>
-          <ul class="ticks">
-            <li>Home visits show her travel fee up front</li>
-            <li>Her deposit and cancellation policy, shown before you request</li>
-          </ul>
+      <div class="story-grid">
+        <div class="steps">
+          <div class="steps-rail" aria-hidden="true"><b></b></div>
+          <article class="step">
+            <div class="step-n">01 / 04</div>
+            <h3 class="h3">Find her, and see everything.</h3>
+            <p>Her work, her reviews from real bookings, her services and prices. Look for the Verified badge — LYORA has checked her ID and portfolio.</p>
+            <div class="phone inline-shot"><div class="screen"><img src="/assets/screens/profile.webp" srcset="/assets/screens/profile-sm.webp 360w, /assets/screens/profile.webp 600w" sizes="250px" width="600" height="1304" loading="lazy" alt="An artist’s LYORA profile with her photo, rating, services and portfolio"></div></div>
+          </article>
+          <article class="step">
+            <div class="step-n">02 / 04</div>
+            <h3 class="h3">Pick a time she’s actually free.</h3>
+            <p>Only her open times show — at her studio, at a salon or at your home, with the travel fee up front. Her deposit and cancellation policy is right there before you send the request.</p>
+            <div class="phone inline-shot"><div class="screen"><img src="/assets/screens/booking.webp" srcset="/assets/screens/booking-sm.webp 360w, /assets/screens/booking.webp 600w" sizes="250px" width="600" height="1304" loading="lazy" alt="Booking screen: open time slots and the artist’s deposit and cancellation policy"></div></div>
+          </article>
+          <article class="step">
+            <div class="step-n">03 / 04</div>
+            <h3 class="h3">Send the deposit straight to her.</h3>
+            <p>Once she confirms, send it to her own InstaPay address and add the transfer reference. She confirms it on her side. LYORA never holds your money, and you never share a screenshot of your bank details.</p>
+            <div class="phone inline-shot"><div class="screen"><img src="/assets/screens/deposit.webp" srcset="/assets/screens/deposit-sm.webp 360w, /assets/screens/deposit.webp 600w" sizes="250px" width="600" height="1304" loading="lazy" alt="Deposit sheet: send EGP 300 by InstaPay to the artist, then enter the transfer reference"></div></div>
+          </article>
+          <article class="step">
+            <div class="step-n">04 / 04</div>
+            <h3 class="h3">Everything about it, in one place.</h3>
+            <p>Reminders the day before and two hours before. Reschedule, cancel or get directions in a tap — and once she’s confirmed, call or WhatsApp her directly.</p>
+            <div class="phone inline-shot"><div class="screen"><img src="/assets/screens/bookings.webp" srcset="/assets/screens/bookings-sm.webp 360w, /assets/screens/bookings.webp 600w" sizes="250px" width="600" height="1304" loading="lazy" alt="My Bookings with a confirmed appointment, call and WhatsApp buttons"></div></div>
+          </article>
         </div>
-        <div class="feature-visual">
-          <div class="phone"><div class="screen"><img src="/assets/screens/booking.webp" srcset="/assets/screens/booking-sm.webp 360w, /assets/screens/booking.webp 600w" sizes="290px" width="600" height="1304" loading="lazy" alt="LYORA booking screen: open time slots and the artist’s deposit and cancellation policy, total EGP 1,650"></div></div>
-        </div>
-      </div>
-
-      <div class="feature flip reveal">
-        <div class="feature-copy">
-          <h3 class="h3">Your deposit goes straight to her.</h3>
-          <p>Once the artist confirms, send the deposit to her own InstaPay address and add the transfer reference. She confirms it on her side, and your booking shows the deposit as received. LYORA never holds your money.</p>
-          <ul class="ticks">
-            <li>No screenshots of your bank details — just the reference</li>
-            <li>Cancel inside her free window and she refunds you</li>
-          </ul>
-        </div>
-        <div class="feature-visual">
-          <div class="phone"><div class="screen"><img src="/assets/screens/deposit.webp" srcset="/assets/screens/deposit-sm.webp 360w, /assets/screens/deposit.webp 600w" sizes="290px" width="600" height="1304" loading="lazy" alt="Deposit sheet: send EGP 300 by InstaPay to the artist’s address, then enter the transfer reference"></div></div>
-        </div>
-      </div>
-
-      <div class="feature reveal">
-        <div class="feature-copy">
-          <h3 class="h3">Everything about your appointment, in one place.</h3>
-          <p>Reminders the day before and two hours before. Reschedule or cancel in a tap, get directions, and once she’s confirmed, call or WhatsApp her directly.</p>
-        </div>
-        <div class="feature-visual">
-          <div class="phone"><div class="screen"><img src="/assets/screens/bookings.webp" srcset="/assets/screens/bookings-sm.webp 360w, /assets/screens/bookings.webp 600w" sizes="290px" width="600" height="1304" loading="lazy" alt="My Bookings: a confirmed appointment with call and WhatsApp buttons and a deposit due"></div></div>
+        <div class="story-phone" aria-hidden="true">
+          <div class="phone">
+            <div class="shots">
+              <img src="/assets/screens/profile.webp" alt="" width="600" height="1304">
+              <img src="/assets/screens/booking.webp" alt="" width="600" height="1304">
+              <img src="/assets/screens/deposit.webp" alt="" width="600" height="1304">
+              <img src="/assets/screens/bookings.webp" alt="" width="600" height="1304">
+              <span class="shot-glare"></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Artists -->
+  <!-- ═══ Artists ═══ -->
   <section class="section dark" id="artists">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="flow-stage">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">For artists</span>
-        <h2 class="h2">Your booking link, calendar and deposits — <em class="accent" style="color:#f0a7c2">free.</em></h2>
-        <p class="lede">Put one link in your Instagram bio. Clients see your prices and open times and book themselves — no more chasing InstaPay screenshots or double-booked Saturdays.</p>
+        <h2 class="h2">One link in your bio. <em class="accent">A full week.</em></h2>
+        <p class="lede">Clients see your prices and open times and book themselves. Every booking lands in one calendar with your walk-ins and DMs — and the ones from your link are always free.</p>
       </div>
 
-      <div class="feature reveal">
-        <div class="feature-copy">
-          <h3 class="h3">A booking link that’s yours.</h3>
-          <p><span dir="ltr">book.lyora.beauty/your-name</span> opens your menu, prices and open times. Anyone who books through it is your client — LYORA never takes a fee on them.</p>
+      <div class="flow" data-flow>
+        <svg class="flow-svg" aria-hidden="true"></svg>
+        <div class="ig">
+          <div class="ig-top">
+            <img src="/assets/demo/yasmin.webp" alt="" width="96" height="96">
+            <div><div class="ig-name">Yasmin Adel</div><div class="ig-handle">@yasmin.makeup</div></div>
+          </div>
+          <div class="ig-tags"><span>Bridal</span><span>Soft glam</span><span>Home visits</span></div>
+          <p class="ig-bio">Bridal &amp; soft glam · New Cairo<br>Home visits on weekends ✦ Book below</p>
+          <span class="ig-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>book.lyora.beauty/yasmin.adel</span>
         </div>
-        <div class="feature-visual">
-          <div class="phone"><div class="screen"><img src="/assets/screens/artist-link.webp" srcset="/assets/screens/artist-link-sm.webp 360w, /assets/screens/artist-link.webp 600w" sizes="290px" width="600" height="1304" loading="lazy" alt="Artist app: your booking link sheet with copy and share buttons"></div></div>
+        <div class="week">
+          <div class="week-head"><b>This week</b><span class="week-count"><b data-count>7</b> from your link · <b>EGP 0</b> fees</span></div>
+          <div class="week-grid">
+            <span class="week-day">Sat</span><span class="week-day">Sun</span><span class="week-day">Mon</span><span class="week-day">Tue</span><span class="week-day">Wed</span><span class="week-day">Thu</span><span class="week-day">Fri</span>
+            <span class="cell filled" data-t="0"></span><span class="cell walkin" data-l="DM"></span><span class="cell"></span><span class="cell filled" data-t="1"></span><span class="cell"></span><span class="cell filled" data-t="2"></span><span class="cell busy"></span>
+            <span class="cell"></span><span class="cell filled" data-t="3"></span><span class="cell walkin" data-l="Walk-in"></span><span class="cell"></span><span class="cell filled" data-t="4"></span><span class="cell"></span><span class="cell busy"></span>
+            <span class="cell filled" data-t="5"></span><span class="cell"></span><span class="cell"></span><span class="cell walkin" data-l="WA"></span><span class="cell"></span><span class="cell filled" data-t="6"></span><span class="cell busy"></span>
+          </div>
+          <div class="week-legend">
+            <span><i style="background:var(--rose)"></i>From your link</span>
+            <span><i style="background:#4a3f3a"></i>Added by you</span>
+            <span><i style="background:repeating-linear-gradient(135deg,#2a2524 0 3px,#312b29 3px 6px)"></i>Time off</span>
+          </div>
+        </div>
+        <div class="tokens" aria-hidden="true">
+          <span class="token"><i>N</i>Sat 12:00</span><span class="token"><i>H</i>Tue 15:00</span><span class="token"><i>M</i>Thu 13:30</span>
+          <span class="token"><i>L</i>Sun 17:00</span><span class="token"><i>S</i>Wed 19:00</span><span class="token"><i>R</i>Sat 16:30</span><span class="token"><i>D</i>Thu 20:00</span>
+        </div>
+      </div>
+      </div>
+
+      <div class="tools">
+        <div class="tool">
+          <div class="phone" data-parallax="-6"><div class="screen"><img src="/assets/screens/artist-link.webp" srcset="/assets/screens/artist-link-sm.webp 360w, /assets/screens/artist-link.webp 600w" sizes="250px" width="600" height="1304" loading="lazy" alt="Artist app: your booking link with copy and share"></div></div>
+          <h3>A link that’s yours</h3>
+          <p>Copy it into your Instagram and TikTok bio. Anyone who books through it is your client — no LYORA fee, ever.</p>
+        </div>
+        <div class="tool">
+          <div class="phone" data-parallax="6"><div class="screen"><img src="/assets/screens/artist-home.webp" srcset="/assets/screens/artist-home-sm.webp 360w, /assets/screens/artist-home.webp 600w" sizes="250px" width="600" height="1304" loading="lazy" alt="Artist dashboard: today’s schedule with a deposit reference to confirm"></div></div>
+          <h3>Deposits that stop no-shows</h3>
+          <p>Ask for 20, 30 or 50%. Confirm it in one tap after you check your bank app. A no-show keeps the deposit with you.</p>
+        </div>
+        <div class="tool">
+          <div class="phone" data-parallax="-3"><div class="screen"><img src="/assets/screens/artist-calendar.webp" srcset="/assets/screens/artist-calendar-sm.webp 360w, /assets/screens/artist-calendar.webp 600w" sizes="250px" width="600" height="1304" loading="lazy" alt="Artist calendar with the week’s bookings, Add booking and Block time"></div></div>
+          <h3>One calendar for everything</h3>
+          <p>App bookings, walk-ins, DMs and WhatsApp in one place. Block time off and nobody books over it.</p>
         </div>
       </div>
 
-      <div class="feature flip reveal">
-        <div class="feature-copy">
-          <h3 class="h3">Deposits that stop no-shows.</h3>
-          <p>Ask for 20, 30 or 50%. Clients send it to your own InstaPay with the reference attached to the booking, and you confirm in one tap after checking your bank app. Your cancellation policy is shown before anyone books.</p>
-          <ul class="ticks">
-            <li>Mark a no-show in one tap — the deposit stays with you</li>
-            <li>Late cancellations follow the policy you set</li>
-          </ul>
-        </div>
-        <div class="feature-visual">
-          <div class="phone"><div class="screen"><img src="/assets/screens/artist-home.webp" srcset="/assets/screens/artist-home-sm.webp 360w, /assets/screens/artist-home.webp 600w" sizes="290px" width="600" height="1304" loading="lazy" alt="Artist dashboard: today’s schedule with a deposit reference to confirm"></div></div>
-        </div>
-      </div>
-
-      <div class="feature reveal">
-        <div class="feature-copy">
-          <h3 class="h3">One calendar for everything.</h3>
-          <p>App bookings, walk-ins, DMs and WhatsApp bookings in one place. Block time off and nobody can book over it.</p>
-        </div>
-        <div class="feature-visual">
-          <div class="phone"><div class="screen"><img src="/assets/screens/artist-calendar.webp" srcset="/assets/screens/artist-calendar-sm.webp 360w, /assets/screens/artist-calendar.webp 600w" sizes="290px" width="600" height="1304" loading="lazy" alt="Artist calendar: the week’s bookings with Add booking and Block time"></div></div>
-        </div>
-      </div>
-
-      <div class="pricing reveal" aria-label="Pricing for artists">
+      <div class="pricing" aria-label="Pricing for artists">
         <div>
-          <div class="big">0%</div>
+          <div class="big"><span class="odo" data-to="0">0</span><span class="unit">%</span></div>
           <h3>On your own clients</h3>
           <p>Everyone who books through your link, plus walk-ins and DMs you add yourself. Always.</p>
         </div>
         <div>
-          <div class="big">15%</div>
+          <div class="big"><span class="odo" data-to="15">15</span><span class="unit">%</span></div>
           <h3>On a new client LYORA brings you</h3>
           <p>Only her first booking, and only if she found you on LYORA. Once per client, billed monthly.</p>
         </div>
         <div>
-          <div class="big">60 days</div>
+          <div class="big"><span class="odo" data-to="60">60</span><span class="unit">days</span></div>
           <h3>Free for founding partners</h3>
           <p>Join early and pay no fees at all for your first 60 days.</p>
         </div>
       </div>
-      <div class="cta-row reveal">
-        <a class="btn btn-light" href="https://apps.apple.com/app/id6783791717" rel="noopener">Join as an artist</a>
+      <div class="cta-row">
+        <a class="btn btn-light magnetic" href="https://apps.apple.com/app/id6783791717" rel="noopener">Join as an artist</a>
         <a class="link-arrow" href="mailto:support@lyora.beauty?subject=Joining%20LYORA%20as%20an%20artist">Questions? Email us</a>
       </div>
     </div>
   </section>
 
-  <!-- Salons -->
+  <!-- ═══ Salons ═══ -->
   <section class="section" id="salons">
     <div class="wrap split">
-      <div class="reveal">
+      <div data-reveal>
         <span class="eyebrow">For salons</span>
         <h2 class="h2">Your whole team, one schedule.</h2>
-        <p class="lede" style="margin-top:18px">Bring your artists onto LYORA and run the floor from one screen — with your own salon prices.</p>
+        <p class="lede" style="margin-top:20px">Bring your artists onto LYORA and run the floor from one screen — with your own salon prices.</p>
       </div>
-      <div class="cards reveal">
+      <div class="cards" data-stagger>
         <div class="card">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19.5c.8-3.2 3.2-5 6-5s5.2 1.8 6 5"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.6c2.4.2 4.2 1.8 5 4.4"/></svg>
           <div><h3>Your team and your prices</h3><p>Invite your artists, set salon prices per service, and show the team on your salon page.</p></div>
@@ -252,94 +313,68 @@
     </div>
   </section>
 
-  <!-- Trust -->
+  <!-- ═══ Trust: stacking cards ═══ -->
   <section class="section trust" aria-labelledby="trust-title">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">Trust</span>
         <h2 class="h2" id="trust-title">Built so both sides can rely on it.</h2>
       </div>
-      <div class="trust-grid reveal">
-        <div>
+      <div class="stack">
+        <article class="stack-card" style="--i:0">
           <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 4 6v5.5c0 4.7 3.4 8.7 8 9.7 4.6-1 8-5 8-9.7V6l-8-3.2z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg></span>
-          <h3>Verified artists</h3>
-          <p>The Verified badge means LYORA has checked her ID and portfolio on a call.</p>
-        </div>
-        <div>
+          <div><span class="num">01</span><h3>Verified artists</h3><p>The Verified badge means LYORA has checked her ID and portfolio on a call. Nothing is uploaded or stored.</p></div>
+        </article>
+        <article class="stack-card" style="--i:1">
           <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></span>
-          <h3>Reviews you can believe</h3>
-          <p>Only clients who completed a booking can leave a review. Reported reviews are checked by our team.</p>
-        </div>
-        <div>
+          <div><span class="num">02</span><h3>Reviews you can believe</h3><p>Only clients who completed a booking can leave a review. Reported reviews are checked by our team.</p></div>
+        </article>
+        <article class="stack-card" style="--i:2">
           <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></span>
-          <h3>Numbers stay private</h3>
-          <p>Phone numbers are shared only between a client and the artist she booked, once the booking is confirmed.</p>
-        </div>
+          <div><span class="num">03</span><h3>Numbers stay private</h3><p>Phone numbers are shared only between a client and the artist she booked, once the booking is confirmed.</p></div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- ═══ FAQ ═══ -->
   <section class="section" id="faq" aria-labelledby="faq-title">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">FAQ</span>
         <h2 class="h2" id="faq-title">Questions, answered.</h2>
       </div>
-      <div class="faq reveal">
-        <details>
-          <summary>Is LYORA free for clients?</summary>
-          <p>Yes. You pay the artist’s listed price and nothing to LYORA.</p>
-        </details>
-        <details>
-          <summary>How do deposits work?</summary>
-          <p>Some artists ask for a deposit to hold your slot. Once she confirms your booking, you send it to her own InstaPay address and add the transfer reference in the app. The money goes straight to her — LYORA never holds it.</p>
-        </details>
-        <details>
-          <summary>What if I need to cancel?</summary>
-          <p>Each artist sets a free-cancellation window — 12, 24 or 48 hours before — and you see it before you book. Cancel within it and your deposit is refunded. After it, her policy applies.</p>
-        </details>
-        <details>
-          <summary>Where does LYORA work?</summary>
-          <p>We’re starting in Cairo. Artists can come to you if they offer home visits — you’ll see it on their profile.</p>
-        </details>
-        <details>
-          <summary>Is there an Android app?</summary>
-          <p>It’s coming soon to Google Play. Leave your email below and we’ll tell you the day it’s out.</p>
-        </details>
-        <details>
-          <summary>I’m an artist. What does LYORA cost?</summary>
-          <p>Nothing for your own clients — anyone who books through your link, plus walk-ins and DMs you add yourself. LYORA charges 15% only on the first booking of a new client we bring you, once per client, billed monthly. Founding partners pay nothing for their first 60 days.</p>
-        </details>
+      <div class="faq" data-stagger>
+        <details><summary>Is LYORA free for clients?<span class="pm" aria-hidden="true"></span></summary><div class="answer"><p>Yes. You pay the artist’s listed price and nothing to LYORA.</p></div></details>
+        <details><summary>How do deposits work?<span class="pm" aria-hidden="true"></span></summary><div class="answer"><p>Some artists ask for a deposit to hold your slot. Once she confirms your booking, you send it to her own InstaPay address and add the transfer reference in the app. The money goes straight to her — LYORA never holds it.</p></div></details>
+        <details><summary>What if I need to cancel?<span class="pm" aria-hidden="true"></span></summary><div class="answer"><p>Each artist sets a free-cancellation window — 12, 24 or 48 hours before — and you see it before you book. Cancel within it and she refunds your deposit. After it, her policy applies.</p></div></details>
+        <details><summary>Where does LYORA work?<span class="pm" aria-hidden="true"></span></summary><div class="answer"><p>We’re starting in Cairo. Artists can come to you if they offer home visits — you’ll see it on their profile.</p></div></details>
+        <details><summary>Is there an Android app?<span class="pm" aria-hidden="true"></span></summary><div class="answer"><p>It’s coming soon to Google Play. Leave your email below and we’ll tell you the day it’s out.</p></div></details>
+        <details><summary>I’m an artist. What does LYORA cost?<span class="pm" aria-hidden="true"></span></summary><div class="answer"><p>Nothing for your own clients — anyone who books through your link, plus walk-ins and DMs you add yourself. LYORA charges 15% only on the first booking of a new client we bring you, once per client, billed monthly. Founding partners pay nothing for their first 60 days.</p></div></details>
       </div>
     </div>
   </section>
 
-  <!-- Download -->
+  <!-- ═══ Download ═══ -->
   <section class="section download" id="download" aria-labelledby="download-title">
     <div class="wrap">
-      <div class="reveal">
+      <div data-reveal>
         <h2 class="h2" id="download-title">Your next appointment is a few taps away.</h2>
         <p class="lede">Free on iPhone. Android is on its way.</p>
         <div class="cta-row">
-          <a class="btn btn-ink store" href="https://apps.apple.com/app/id6783791717" rel="noopener">
+          <a class="btn btn-ink store magnetic" href="https://apps.apple.com/app/id6783791717" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.05 1.6 2.24 2.73 2.2 1.1-.05 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.33-3.53zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.64-1.05 1.68-.92 2.67.97.07 1.96-.49 2.56-1.22z"/></svg>
             <span><small>Download on the</small><b>App Store</b></span>
           </a>
         </div>
       </div>
-
-      <div class="notify reveal">
+      <div class="notify" data-reveal>
         <h3>On Android? Get told the day it launches.</h3>
         <p>One email when LYORA is on Google Play. Nothing else.</p>
         <form id="notify-form" action="https://docs.google.com/forms/d/e/1FAIpQLSeDZtMh4oizTAiCWTDdrhZZs3nA7Vpc5B5o_A4CYUccoJpkTA/formResponse" method="POST" target="notify-frame">
           <div class="form-row">
-            <div class="field">
-              <label for="nf-email">Email</label>
-              <input id="nf-email" type="email" name="entry.905072472" autocomplete="email" required>
-            </div>
-            <div class="field">
-              <label for="nf-role">I am</label>
+            <div class="field"><label for="nf-email">Email</label><input id="nf-email" type="email" name="entry.905072472" autocomplete="email" required></div>
+            <div class="field"><label for="nf-role">I am</label>
               <select id="nf-role" name="entry.1811299792" required>
                 <option value="Client">Booking an appointment</option>
                 <option value="Artist">A beauty artist</option>
@@ -360,6 +395,7 @@
 
 <footer class="site-footer">
   <div class="wrap">
+    <div class="giant" aria-hidden="true">LYORA</div>
     <div class="foot">
       <a class="wordmark" href="/" aria-label="LYORA home">LYORA</a>
       <nav aria-label="Footer">
@@ -372,6 +408,10 @@
   </div>
 </footer>
 
-<script src="/assets/site.js" defer></script>
+<script src="/assets/vendor/gsap.min.js" defer></script>
+<script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="/assets/vendor/MotionPathPlugin.min.js" defer></script>
+<script src="/assets/vendor/lenis.min.js" defer></script>
+<script src="/assets/motion.js" defer></script>
 </body>
 </html>

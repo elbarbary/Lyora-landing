@@ -151,16 +151,17 @@
   var demoTl = null;
   function heroIn() {
     doc.classList.remove('js-motion');
-    var lines = qa('.hero h1 .line > span');
-    var bits = qa('.hero .eyebrow, .hero .lede, .hero .cta-row, .hero-note');
+    // Home hero or a subpage's .page-hero — whichever this page has.
+    var lines = qa('.hero h1 .line > span, .page-hero h1 .line > span');
+    var bits = qa('.hero .eyebrow, .hero .lede, .hero .cta-row, .hero-note, .page-hero .eyebrow, .page-hero .lede');
     var phone = q('.demo-phone');
     var floats = qa('.stage .float:not(.toast)');
     var tl = gsap.timeline();
-    tl.fromTo(lines, { yPercent: 108 }, { yPercent: 0, duration: 1.25, ease: 'expo.out', stagger: 0.09 })
-      .fromTo(bits, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.08 }, 0.25)
-      .fromTo(phone, { autoAlpha: 0, y: 90, rotationX: 18, rotationY: -16 * X, scale: 0.94 },
-        { autoAlpha: 1, y: 0, rotationX: 0, rotationY: 0, scale: 1, duration: 1.6, ease: 'expo.out' }, 0.15)
-      .fromTo(floats, { autoAlpha: 0, scale: 0.85, y: 18 },
+    if (lines.length) tl.fromTo(lines, { yPercent: 108 }, { yPercent: 0, duration: 1.25, ease: 'expo.out', stagger: 0.09 }, 0);
+    if (bits.length) tl.fromTo(bits, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.08 }, 0.25);
+    if (phone) tl.fromTo(phone, { autoAlpha: 0, y: 90, rotationX: 18, rotationY: -16 * X, scale: 0.94 },
+        { autoAlpha: 1, y: 0, rotationX: 0, rotationY: 0, scale: 1, duration: 1.6, ease: 'expo.out' }, 0.15);
+    if (floats.length) tl.fromTo(floats, { autoAlpha: 0, scale: 0.85, y: 18 },
         { autoAlpha: 1, scale: 1, y: 0, duration: 0.9, ease: 'back.out(1.7)', stagger: 0.14 }, 0.9);
     if (demoTl) tl.add(function () { demoTl.play(0); }, 1.1);
   }
@@ -338,6 +339,31 @@
         autoAlpha: 1, y: 0, duration: 0.9, ease: 'expo.out', stagger: 0.08,
         scrollTrigger: { trigger: el, start: 'top 85%', once: true }
       });
+    });
+  }
+
+  /* ── Pull quotes: words fill in as they scroll through (Our story) ── */
+  function words() {
+    qa('[data-words]').forEach(function (el) {
+      var split = function (node) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+          if (n.nodeType === 1) { split(n); return; }
+          if (n.nodeType !== 3 || !n.nodeValue.trim()) return;
+          var frag = document.createDocumentFragment();
+          n.nodeValue.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var w = document.createElement('span');
+            w.className = 'w';
+            w.textContent = part;
+            frag.appendChild(w);
+          });
+          node.replaceChild(frag, n);
+        });
+      };
+      split(el);
+      gsap.fromTo(qa('.w', el), { opacity: 0.14 }, { opacity: 1, ease: 'none', stagger: 0.1,
+        scrollTrigger: { trigger: el, start: 'top 82%', end: 'bottom 48%', scrub: 0.5 } });
     });
   }
 
@@ -542,6 +568,7 @@
   heroTilt();
   marquee();
   reveals();
+  words();
   story(mm);
   flow(mm);
   parallax();

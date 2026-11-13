@@ -8,7 +8,7 @@
  *   3. Marquee that answers scroll speed and direction
  *   4. Clients: sticky phone whose screen wipes between the four steps
  *   5. Artists: bookings leave her bio link and land in her week (scrubbed)
- *   6. Rolling-digit pricing, stacking trust cards, the footer wordmark fill
+ *   6. Rolling-digit pricing, stacking trust cards, the footer wordmark draw
  *
  * The HTML is complete without this file: every element's resting state is
  * its final state. Reduced-motion visitors get that static page plus the
@@ -77,6 +77,26 @@
       }
     });
   });
+
+  // WhatsApp chat button: slides in once the visitor is past the hero, steps aside at the
+  // very bottom so it never covers the footer's last row.
+  var fab = q('.wa-fab');
+  if (fab) {
+    fab.classList.add('armed');
+    var fabHero = q('.hero, .page-hero');
+    var fabEnd = false;
+    var fabUpdate = function () {
+      var limit = fabHero ? fabHero.offsetTop + fabHero.offsetHeight * 0.55 : 160;
+      fab.classList.toggle('show', window.scrollY > limit && !fabEnd);
+    };
+    var lastRow = q('.foot-bottom');
+    if (lastRow && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { fabEnd = es[0].isIntersecting; fabUpdate(); }).observe(lastRow);
+    }
+    window.addEventListener('scroll', fabUpdate, { passive: true });
+    window.addEventListener('resize', fabUpdate);
+    fabUpdate();
+  }
 
   var onScrollBasic = function () { header && header.classList.toggle('scrolled', window.scrollY > 8); };
 
@@ -536,14 +556,78 @@
     });
   }
 
-  /* ── 6d. Footer wordmark fills as you arrive ──────────────────────── */
+  /* ── 6d. Footer wordmark: line draws, letters rise and trace, ink fills ── */
   function giant() {
-    var g = q('.giant');
-    if (!g) return;
-    gsap.fromTo(g, { '--fill': '0%' }, { '--fill': '100%', ease: 'none',
-      scrollTrigger: { trigger: '.site-footer', start: 'top bottom', end: 'bottom bottom', scrub: 0.6 } });
-    gsap.fromTo(g, { yPercent: 25, letterSpacing: '0.2em' }, { yPercent: 0, letterSpacing: '0.04em', ease: 'none',
-      scrollTrigger: { trigger: '.site-footer', start: 'top bottom', end: 'bottom bottom', scrub: 0.6 } });
+    var svg = q('.giant-svg');
+    var src = svg && q('text', svg);
+    if (!src || !src.getStartPositionOfChar) return;
+    var NS = 'http://www.w3.org/2000/svg';
+    var mk = function (tag, attrs) {
+      var el = document.createElementNS(NS, tag);
+      for (var k in attrs) el.setAttribute(k, attrs[k]);
+      return el;
+    };
+    var build = function () {
+      var word = src.textContent, base = parseFloat(src.getAttribute('y')), xs = [];
+      try { for (var i = 0; i < word.length; i++) xs.push(src.getStartPositionOfChar(i).x); } catch (e) { return; }
+      var vb = svg.viewBox.baseVal;
+      var defs = mk('defs', {});
+      // Letters live above this edge; they start below it and rise through it.
+      defs.appendChild(mk('clipPath', { id: 'giant-clip' }))
+        .appendChild(mk('rect', { x: vb.x - 60, y: vb.y - 240, width: vb.width + 120, height: base + 8 - (vb.y - 240) }));
+      var group = mk('g', { 'clip-path': 'url(#giant-clip)' });
+      var letters = [], fills = [];
+      for (var j = 0; j < word.length; j++) {
+        var grad = defs.appendChild(mk('linearGradient', { id: 'giant-fill-' + j, x1: 0, y1: 1, x2: 0, y2: 0 }));
+        var s1 = grad.appendChild(mk('stop', { offset: 0 }));
+        var s2 = grad.appendChild(mk('stop', { offset: 0, 'stop-opacity': 0 }));
+        var t = group.appendChild(mk('text', { x: xs[j], y: base, 'class': 'gl' }));
+        t.style.fill = 'url(#giant-fill-' + j + ')';
+        t.textContent = word[j];
+        letters.push(t);
+        fills.push([s1, s2]);
+      }
+      var line = mk('line', { 'class': 'giant-line', x1: vb.x + 6, x2: vb.x + vb.width - 6, y1: base + 12, y2: base + 12 });
+      svg.appendChild(defs);
+      svg.appendChild(group);
+      svg.appendChild(line);
+      src.parentNode.removeChild(src);
+
+      gsap.set(line, { scaleX: 0, transformOrigin: '50% 50%' });
+      gsap.set(letters, { y: 170, strokeDasharray: 1200, strokeDashoffset: 1200 });
+      var tl = gsap.timeline({ paused: true });
+      tl.to(line, { scaleX: 1, duration: 0.9, ease: 'power3.inOut' }, 0)
+        .to(letters, { y: 0, duration: 1.3, ease: 'expo.out', stagger: 0.08 }, 0.35)
+        .to(letters, { strokeDashoffset: 0, duration: 1.7, ease: 'power2.inOut', stagger: 0.08 }, 0.35);
+      fills.forEach(function (f, k) {
+        var o = { p: -0.14 };
+        tl.to(o, { p: 1, duration: 1.05, ease: 'power2.inOut', onUpdate: function () {
+          f[0].setAttribute('offset', Math.max(0, o.p));
+          f[1].setAttribute('offset', Math.min(1, Math.max(0, o.p + 0.14)));
+        } }, 1.1 + k * 0.09);
+      });
+      tl.to(letters, { strokeOpacity: 0, duration: 0.7, ease: 'power1.out' }, '-=0.35')
+        .to(line, { opacity: 0, duration: 0.7, ease: 'power1.out' }, '<');
+
+      ScrollTrigger.create({ trigger: svg, start: 'top 90%', once: true, onEnter: function () { tl.play(); } });
+
+      // Desktop: letters lift in a soft wave under the cursor once the word has settled.
+      if (fine) {
+        var lifts = letters.map(function (el) { return gsap.quickTo(el, 'y', { duration: 0.7, ease: 'power3' }); });
+        var centers = letters.map(function (el) { var b = el.getBBox(); return b.x + b.width / 2; });
+        var pt = svg.createSVGPoint();
+        svg.addEventListener('pointermove', function (e) {
+          var m = svg.getScreenCTM();
+          if (tl.progress() < 1 || !m) return;
+          pt.x = e.clientX; pt.y = e.clientY;
+          var px = pt.matrixTransform(m.inverse()).x;
+          letters.forEach(function (el, i) { var d = (centers[i] - px) / 110; lifts[i](-16 * Math.exp(-d * d)); });
+        });
+        svg.addEventListener('pointerleave', function () { lifts.forEach(function (f) { f(0); }); });
+      }
+    };
+    if (document.fonts && document.fonts.load) document.fonts.load('500 200px "Cormorant Garamond"').then(build, build);
+    else build();
   }
 
   /* ── 6e. Magnetic primary buttons ─────────────────────────────────── */

@@ -42,19 +42,53 @@
     });
   }
 
+  // Waitlist (the app isn't in the stores yet): phone (WhatsApp) + optional email + role,
+  // sent to the joinWaitlist Cloud Function. Without JS the form posts there directly.
   var form = document.getElementById('notify-form');
   if (form) {
-    form.addEventListener('submit', function () {
-      var hp = q('.hp input', form);
-      if (hp && hp.value) return;
+    var okMsg = q('.form-status.ok', form), errMsg = q('.form-status.err', form);
+    var phoneIn = form.elements.phone, roleSel = form.elements.role;
+    var phoneOk = function (v) {
+      var s = String(v || '').replace(/[\s\-().]/g, '');
+      return /^(?:\+20|0020|20)?0?1[0125]\d{8}$/.test(s) || /^(?:\+|00)[1-9]\d{7,14}$/.test(s);
+    };
+    var status = function (state) {
+      if (okMsg) okMsg.classList.toggle('show', state === 'ok');
+      if (errMsg) errMsg.classList.toggle('show', state === 'err');
+    };
+    if (phoneIn) phoneIn.addEventListener('input', function () { phoneIn.setCustomValidity(''); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (phoneIn && !phoneOk(phoneIn.value)) {
+        phoneIn.setCustomValidity(form.getAttribute('data-phone-msg') || 'Enter a valid mobile number.');
+        phoneIn.reportValidity();
+        return;
+      }
       var btn = q('button[type="submit"]', form);
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      data.whatsapp = !!(form.elements.whatsapp && form.elements.whatsapp.checked);
       btn.disabled = true;
-      setTimeout(function () {
-        document.getElementById('notify-status').classList.add('show');
-        form.reset();
-        btn.disabled = false;
-      }, 700);
+      btn.setAttribute('aria-busy', 'true');
+      status('');
+      fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+        .then(function (j) { if (!j || !j.ok) throw new Error('not ok'); status('ok'); form.reset(); })
+        .catch(function () { status('err'); })
+        .then(function () { btn.disabled = false; btn.removeAttribute('aria-busy'); });
     });
+    // Back from the no-JS post, or arriving from "Join as an artist" on another page.
+    var back = /[?&]waitlist=(joined|error)/.exec(location.search);
+    if (back) status(back[1] === 'joined' ? 'ok' : 'err');
+    var pickRole = function (r) {
+      if (!roleSel || !r) return;
+      for (var i = 0; i < roleSel.options.length; i++) {
+        if (roleSel.options[i].value.toLowerCase() === String(r).toLowerCase()) roleSel.selectedIndex = i;
+      }
+    };
+    var qRole = /[?&]role=(client|artist|salon)\b/i.exec(location.search);
+    if (qRole) pickRole(qRole[1]);
+    qa('[data-role]').forEach(function (a) { a.addEventListener('click', function () { pickRole(a.getAttribute('data-role')); }); });
   }
 
   // FAQ: animated open/close (native toggle when motion is reduced)

@@ -106,6 +106,16 @@ em.accent { font-style: italic; color: var(--rose); }
 .btn-line { border-color: var(--line); background: var(--surface); color: var(--ink); }
 .btn[aria-disabled="true"] { opacity: .6; cursor: default; }
 .btn svg { width: 20px; height: 20px; flex: none; }
+.btn-lg { min-height: 56px; padding: 0 28px; font-size: 16.5px; }
+.btn-lg svg { transition: transform .4s var(--ease-out); }
+.btn-lg:hover svg { transform: translateX(3px); }
+:dir(rtl) .btn-lg svg { transform: scaleX(-1); }
+:dir(rtl) .btn-lg:hover svg { transform: scaleX(-1) translateX(3px); }
+/* "Coming soon" chip: the app isn't in the stores yet */
+.soon { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font: 500 14px/1.2 var(--sans); color: var(--ink-2); }
+.soon i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--rose); animation: soon-pulse 2.4s var(--ease-out) infinite; }
+@keyframes soon-pulse { 0% { box-shadow: 0 0 0 0 rgba(200,51,107,.45); } 70%, 100% { box-shadow: 0 0 0 9px rgba(200,51,107,0); } }
+@media (prefers-reduced-motion: reduce) { .soon i { animation: none; } }
 .btn-light { background: #fff; color: var(--ink); }
 .btn-light:hover { background: #f1ebe6; }
 .store { min-height: 56px; padding: 0 22px 0 18px; border-radius: 14px; gap: 12px; text-align: start; }
@@ -472,6 +482,14 @@ em.accent { font-style: italic; color: var(--rose); }
 .form-note { font-size: 13px; color: var(--ink-3); margin: 12px 0 0; }
 .form-status { display: none; margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: var(--sage-soft); color: var(--sage); font-weight: 500; }
 .form-status.show { display: block; }
+.form-status.err { background: #fbe9ef; color: var(--rose-ink); }
+.form-status.err a { color: inherit; font-weight: 600; }
+.field label small { font-size: 12.5px; font-weight: 400; color: var(--ink-3); margin-inline-start: 6px; }
+.field input::placeholder { color: var(--ink-3); opacity: 1; }
+.check { display: flex; align-items: center; gap: 10px; align-self: end; min-height: 48px; font-size: 14.5px; color: var(--ink-2); cursor: pointer; }
+.check input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--rose); }
+.notify .form-row + .form-row { margin-top: 12px; }
+.download .soon { margin-bottom: 24px; }
 /* Honeypot: clipped in place — an off-screen `left` would make RTL pages scroll sideways. */
 .hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }

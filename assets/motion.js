@@ -112,25 +112,76 @@
     });
   });
 
-  // WhatsApp chat button: slides in once the visitor is past the hero, steps aside at the
-  // very bottom so it never covers the footer's last row.
-  var fab = q('.wa-fab');
-  if (fab) {
-    fab.classList.add('armed');
+  // WhatsApp button (desktop) and bottom dock (phones: Join the waitlist + WhatsApp) slide in
+  // once the visitor is past the hero. Both step aside at the footer's last row; the dock also
+  // steps aside while the waitlist form itself is on screen.
+  var fab = q('.wa-fab'), dock = q('.dock');
+  if (fab || dock) {
+    if (fab) fab.classList.add('armed');
+    if (dock) dock.classList.add('armed');
     var fabHero = q('.hero, .page-hero');
-    var fabEnd = false;
+    var fabEnd = false, formSeen = false;
     var fabUpdate = function () {
       var limit = fabHero ? fabHero.offsetTop + fabHero.offsetHeight * 0.55 : 160;
-      fab.classList.toggle('show', window.scrollY > limit && !fabEnd);
+      var past = window.scrollY > limit;
+      if (fab) fab.classList.toggle('show', past && !fabEnd);
+      if (dock) dock.classList.toggle('show', past && !fabEnd && !formSeen);
     };
-    var lastRow = q('.foot-bottom');
-    if (lastRow && 'IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { fabEnd = es[0].isIntersecting; fabUpdate(); }).observe(lastRow);
+    if ('IntersectionObserver' in window) {
+      var lastRow = q('.foot-bottom');
+      if (lastRow) new IntersectionObserver(function (es) { fabEnd = es[0].isIntersecting; fabUpdate(); }).observe(lastRow);
+      var wl = q('#notify-form');
+      if (wl) new IntersectionObserver(function (es) { formSeen = es[0].isIntersecting; fabUpdate(); }, { threshold: 0.2 }).observe(wl);
     }
     window.addEventListener('scroll', fabUpdate, { passive: true });
     window.addEventListener('resize', fabUpdate);
     fabUpdate();
   }
+
+  // Phone carousels (client steps, artist tools): progress dots, tap a dot to jump, and
+  // keyboard focus only while the row actually scrolls (it's a normal grid on desktop).
+  qa('[data-carousel]').forEach(function (track) {
+    var cards = qa(':scope > .step, :scope > .tool', track);
+    if (cards.length < 2) return;
+    var dots = document.createElement('div');
+    dots.className = 'dots';
+    dots.setAttribute('aria-hidden', 'true');
+    var startPad = function () { return parseFloat(getComputedStyle(track).scrollPaddingInlineStart) || 0; };
+    cards.forEach(function (c) {
+      var d = document.createElement('span');
+      d.addEventListener('click', function () {
+        var b = c.getBoundingClientRect(), r = track.getBoundingClientRect();
+        var delta = rtl ? b.right - (r.right - startPad()) : b.left - (r.left + startPad());
+        track.scrollBy({ left: delta, behavior: reduce ? 'auto' : 'smooth' });
+      });
+      dots.appendChild(d);
+    });
+    track.parentNode.insertBefore(dots, track.nextSibling);
+    var mark = function () {
+      var r = track.getBoundingClientRect(), best = 0, bestW = -1;
+      cards.forEach(function (c, i) {
+        var b = c.getBoundingClientRect();
+        var w = Math.min(b.right, r.right) - Math.max(b.left, r.left);
+        if (w > bestW + 1) { bestW = w; best = i; }
+      });
+      for (var i = 0; i < dots.children.length; i++) dots.children[i].classList.toggle('on', i === best);
+    };
+    var sync = function () {
+      if (track.scrollWidth > track.clientWidth + 2) {
+        track.setAttribute('tabindex', '0');
+        track.setAttribute('role', 'region');
+        track.setAttribute('aria-label', track.getAttribute('data-carousel'));
+      } else {
+        track.removeAttribute('tabindex');
+        track.removeAttribute('role');
+        track.removeAttribute('aria-label');
+      }
+      mark();
+    };
+    track.addEventListener('scroll', function () { window.requestAnimationFrame(mark); }, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  });
 
   var onScrollBasic = function () { header && header.classList.toggle('scrolled', window.scrollY > 8); };
 
@@ -158,15 +209,14 @@
       header.classList.toggle('scrolled', e.scroll > 8);
       header.classList.toggle('hide', e.direction === 1 && e.scroll > 520 && !header.classList.contains('open'));
     });
-    qa('a[href^="#"]').forEach(function (a) {
+    qa('a[href*="#"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
-        var id = a.getAttribute('href');
-        if (id.length < 2) return;
-        var t = q(id);
+        if (a.pathname !== location.pathname || a.search !== location.search || !a.hash || a.hash.length < 2) return;
+        var t = q(a.hash);
         if (!t) return;
         e.preventDefault();
         lenis.scrollTo(t, { offset: -76, duration: 1.4 });
-        if (history.replaceState) history.replaceState(null, '', id);
+        if (history.replaceState) history.replaceState(null, '', a.hash);
       });
     });
   } else {
@@ -541,11 +591,13 @@
   }
 
   /* ── 6a. Parallax phones in the artist tools ──────────────────────── */
-  function parallax() {
+  function parallax(mm) {
     qa('[data-parallax]').forEach(function (el) {
       var n = parseFloat(el.getAttribute('data-parallax')) || 0;
-      gsap.fromTo(el, { yPercent: n }, { yPercent: -n, ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
+      mm.add('(min-width: 861px)', function () {
+        gsap.fromTo(el, { yPercent: n }, { yPercent: -n, ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
+      });
       var img = q('img', el);
       if (img) gsap.fromTo(img, { clipPath: 'inset(100% 0% 0% 0%)', scale: 1.15 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 1.4, ease: 'expo.out',
         scrollTrigger: { trigger: el, start: 'top 85%', once: true } });
@@ -689,7 +741,7 @@
   words();
   story(mm);
   flow(mm);
-  parallax();
+  parallax(mm);
   odometers();
   stack(mm);
   giant();

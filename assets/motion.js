@@ -42,7 +42,7 @@
     });
   }
 
-  // Waitlist (the app isn't in the stores yet): phone (WhatsApp) + optional email + role,
+  // Waitlist (the app isn't in the stores yet): phone (WhatsApp) + email (for the confirmation) + role,
   // sent to the joinWaitlist Cloud Function. Without JS the form posts there directly.
   var form = document.getElementById('notify-form');
   if (form) {

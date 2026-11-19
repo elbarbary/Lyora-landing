@@ -31,3 +31,6 @@ app repo under `hosting/`). Once that subdomain is live, set
 
 ## Rollback
 The previous site is preserved on the `legacy-site` branch.
+
+## Brand assets
+The approved Fold logo masters live in `branding/`, shared with the app repository. Run `python3 scripts/generate_brand_assets.py` (Pillow required) to regenerate web logos and icons; header, footer, intro, and social previews use the new identity. Old unreferenced home screenshots were removed rather than leaving stale branding in public assets.

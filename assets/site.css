@@ -130,9 +130,8 @@ em.accent { font-style: italic; color: var(--rose); }
   position: fixed; inset: 0; z-index: 100; background: var(--dark); color: #f4efea;
   display: grid; place-items: center;
 }
-.intro-mark { display: flex; gap: .3em; font: 500 clamp(40px, 9vw, 120px)/1 "Cormorant Garamond", serif; letter-spacing: .02em; direction: ltr; }
-.intro-mark span { display: inline-block; overflow: hidden; }
-.intro-mark i { display: inline-block; font-style: normal; }
+.intro-mark { width: min(420px, 72vw); direction: ltr; }
+.intro-mark img { display: block; width: 100%; height: auto; filter: brightness(0) invert(1); }
 .intro-line { position: absolute; left: 50%; bottom: 22%; width: min(240px, 50vw); height: 1px; background: rgba(255,255,255,.18); transform: translateX(-50%); overflow: hidden; }
 .intro-line b { display: block; height: 100%; width: 100%; background: var(--rose-light); transform-origin: left; transform: scaleX(0); }
 .intro-tag { position: absolute; bottom: calc(22% - 34px); left: 0; right: 0; text-align: center; font: 500 12px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; color: var(--dark-2); }
@@ -148,9 +147,10 @@ em.accent { font-style: italic; color: var(--rose); }
 .site-header.hide { transform: translateY(-100%); }
 .nav { display: flex; align-items: center; gap: 28px; min-height: 70px; }
 .wordmark {
-  font: 500 23px/1 "Cormorant Garamond", serif; letter-spacing: .28em; text-decoration: none;
-  margin-inline-end: auto; padding-inline-start: .28em; direction: ltr;
+  display: inline-flex; align-items: center; flex: none; width: 128px; text-decoration: none;
+  margin-inline-end: auto; direction: ltr;
 }
+.wordmark img { display: block; width: 100%; height: auto; }
 .nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { position: relative; text-decoration: none; font-size: 15px; color: var(--ink-2); padding: 10px 0; }
 .nav-links a::after {
@@ -498,7 +498,7 @@ em.accent { font-style: italic; color: var(--rose); }
 .site-footer { border-top: 1px solid var(--line); padding: 40px 0 36px; font-size: 14.5px; color: var(--ink-2); overflow: clip; }
 .site-footer a { text-decoration: none; }
 .foot-grid { display: grid; grid-template-columns: 1.7fr 1fr 1fr 1.2fr; gap: 36px clamp(24px, 4vw, 56px); }
-.foot-brand .wordmark { font-size: 21px; color: var(--ink); }
+.foot-brand .wordmark { width: 144px; }
 .foot-brand p { margin: 14px 0 20px; max-width: 32ch; }
 .foot-h { font: 600 12px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin: 6px 0 16px; }
 :lang(ar) .foot-h { letter-spacing: 0; font-size: 13px; }
@@ -518,14 +518,9 @@ em.accent { font-style: italic; color: var(--rose); }
 .foot-bottom a { color: var(--ink-2); }
 .foot-bottom a:hover { color: var(--ink); text-decoration: underline; }
 @media (max-width: 860px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-brand { grid-column: 1 / -1; } }
-/* Footer wordmark: static SVG (solid rose); motion.js splits it into letters and plays
-   line → rise + outline trace → ink fill, once, when it scrolls into view. */
+/* Approved Fold lockup; animate the artwork as a unit to preserve its lettering. */
 .giant { margin: 6px 0 40px; direction: ltr; user-select: none; -webkit-user-select: none; }
-.giant-svg { display: block; width: 100%; height: auto; overflow: visible; }
-.giant-svg text { font: 500 200px "Cormorant Garamond", serif; letter-spacing: .04em; fill: var(--rose); }
-.giant-svg .gl { stroke: var(--rose); stroke-width: 1.4; stroke-linejoin: round; paint-order: stroke; }
-.giant-svg stop { stop-color: var(--rose); }
-.giant-line { stroke: var(--rose); stroke-width: 1.2; }
+.giant-logo { display: block; width: min(100%, 920px); height: auto; margin-inline: auto; }
 
 /* WhatsApp chat button (all pages). Hidden until motion.js arms it and the visitor scrolls
    past the hero; without JS it fades in after 3 s via the keyframe fallback. */
@@ -729,3 +724,5 @@ em.accent { font-style: italic; color: var(--rose); }
   .dock-wa:focus-visible, .dock-cta:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
 }
 @media (max-width: 640px) and (prefers-reduced-motion: reduce) { .dock { transition: opacity .2s, visibility 0s; } }
+
+@media (max-width: 380px) { .nav .wordmark { width: 100px; } .nav { gap: 10px; } .nav .btn { padding-inline: 12px; font-size: 13px; } }
